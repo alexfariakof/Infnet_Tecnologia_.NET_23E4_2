@@ -13,6 +13,7 @@
 ## Princípios 
 
 * Triade X Esforço X Comolexidade
+[Conheça a Matriz de Esforço x Impacto e saiba como aplicá-la no dia a dia da sua empresa](https://rockcontent.com/br/blog/matriz-de-esforco-x-impacto/)
 
 * Utilização de Language Ubiquituous
   
@@ -32,6 +33,8 @@
 
 ![aggregate](https://github.com/alexfariakof/Tecnologia-.NET-CSHARP-23E4_1/assets/42475620/97df809c-c173-4e0c-9bee-643bdb80ccbd)
 
+Os pontilhados são a separação dos limites do contexto. 
+Um aggredate devce possuir sempre uma entiddae raiz 
 
-
-  
+* Entity vs Value Objects 
+  Dê preferÊncias à values Objects
