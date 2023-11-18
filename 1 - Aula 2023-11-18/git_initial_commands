@@ -11,3 +11,10 @@ git status # Visualizar Stages e Unstages files
 git add . # Adiciona os arquivos na stagged
 git commit -m <commnents> # Cmmita as alterações realizadas no stagged
 git push # Envia commits para o servidor remoto
+
+git reflog # Exibi lista de commits realizados
+
+git revert HEAD~1 # Reverte commit anterior 
+git revert HEAD~2 # Reverte commit 2 passos anteriores
+
+git revert <head hash commit> # Reverte para o head especificado 
