@@ -3,7 +3,7 @@ git config --help  # comando de confifuação do git
 git config --user.name <user name> # Configura nome do usuário 
 git config --user.email <user email> # Configura  email do usuário 
 
-git branch # Lista as branche
+git branch # Lista as branches existentes
 
 git branch <branch name> # Cria uma nova branch 
 git checkout -b <branch name> # Faz checkout para branch ou ciar uma nova branch e realiza o checkout
@@ -18,3 +18,18 @@ git revert HEAD~1 # Reverte commit anterior
 git revert HEAD~2 # Reverte commit 2 passos anteriores
 
 git revert <head hash commit> # Reverte para o head especificado 
+
+git add remote origin <url git> # Adiciona o ropostitório local no repositório remoto
+
+git remote get-url origin # Revela o endereço remoto do repositório
+
+git branch -M <branch principal name> # Renomeia a branch principal
+git push -u origin <branch name modified> # Renomeia a branch principal no repositório remoto
+
+git brnach -D <branch branhc name> # Deleta a branch
+
+git merge
+
+git pull 
+
+git branch --remote # Lista as Branches remotas
