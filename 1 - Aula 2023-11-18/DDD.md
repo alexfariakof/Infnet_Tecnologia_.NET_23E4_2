@@ -3,6 +3,6 @@
 Clean Arch (ONION ARCH)
 
 * UI
-  * IFRA
+  - IFRA
     * SERVICE
-      * DOMINIO
+      -  DOMINIO
