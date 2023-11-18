@@ -5,4 +5,4 @@ Clean Arch (ONION ARCH)
 * UI
   - IFRA
     * SERVICE
-      -  DOMINIO
+      -  DOMAIN
