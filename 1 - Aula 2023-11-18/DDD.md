@@ -38,3 +38,10 @@ Um aggredate devce possuir sempre uma entiddae raiz
 
 * Entity vs Value Objects 
   Dê preferÊncias à values Objects
+  
+![2021-02-09-entity-vs-value-object](https://github.com/alexfariakof/Tecnologia-.NET-CSHARP-23E4_1/assets/42475620/110a6a51-788b-412c-ba9a-fb0c5be97716)
+
+* Repositories
+  
+![repositories](https://github.com/alexfariakof/Tecnologia-.NET-CSHARP-23E4_1/assets/42475620/c1153913-c3d0-406f-a6d3-3a5a82c3ff7a)
+
