@@ -1,0 +1,13 @@
+git config --help  # comando de confifuação do git
+
+git config --user.name <user name> # Configura nome do usuário 
+git config --user.email <user email> # Configura  email do usuário 
+
+git branch # Lista as branche
+
+git branch <branch name> # Cria uma nova branch 
+git checkout -b <branch name> # Faz checkout para branch ou ciar uma nova branch e realiza o checkout
+git status # Visualizar Stages e Unstages files
+git add . # Adiciona os arquivos na stagged
+git commit -m <commnents> # Cmmita as alterações realizadas no stagged
+git push # Envia commits para o servidor remoto
