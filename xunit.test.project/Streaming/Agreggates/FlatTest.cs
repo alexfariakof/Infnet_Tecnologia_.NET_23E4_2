@@ -1,7 +1,4 @@
-﻿using Domain.Core.AggreggatesBase;
-using Domain.Core.ValueObject;
-
-namespace Streaming
+﻿namespace Streaming
 {
     public class FlatTest
     {

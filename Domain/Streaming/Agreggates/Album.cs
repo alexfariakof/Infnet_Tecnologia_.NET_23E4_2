@@ -1,13 +1,12 @@
-﻿using Domain.Core.AggreggatesBase;
+﻿using Domain.Core.Aggreggates;
 
 namespace Domain.Streaming.Agreggates
 {
-    public class Album : Base
+    public class Album : BaseModel
     {
         public string Name { get; set; }
-        public List<Music> Music { get; set; } = new List<Music>();
-
-        public void AddMusic(Music music) => this.Music.Add(music);
-        public void AddMusic(List<Music> music) => this.Music.AddRange(music);
+        public List<Music<Playlist>> Music { get; set; } = new List<Music<Playlist>>();
+        public void AddMusic(Music<Playlist> music) => this.Music.Add(music);
+        public void AddMusic(List<Music<Playlist>> music) => this.Music.AddRange(music);
     }
 }

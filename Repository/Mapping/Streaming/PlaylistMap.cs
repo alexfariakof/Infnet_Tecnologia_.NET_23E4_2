@@ -1,0 +1,20 @@
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
+using Domain.Streaming.Agreggates;
+
+namespace Repository.Mapping.Streaming
+{
+    public class PlaylistMap : IEntityTypeConfiguration<Playlist>
+    {
+        public void Configure(EntityTypeBuilder<Playlist> builder)
+        {
+            builder.ToTable(nameof(Playlist));
+
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.Property(x => x.Name).IsRequired().HasMaxLength(50);
+
+            builder.HasMany(x => x.Musics).WithMany(x => x.Playlists);
+        }
+    }
+}

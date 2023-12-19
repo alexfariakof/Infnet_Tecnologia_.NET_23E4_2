@@ -2,8 +2,10 @@
 
 namespace Domain.Streaming.Agreggates
 {
-    public class Playlist : PlayListBase
+    public class Playlist : BaseModel
     {
-       Flat Flat { get; set; }
+        public string Name { get; set; }
+        Flat Flat { get; set; }
+        public List<Music<Playlist>> Musics { get; set; }
     }
 }

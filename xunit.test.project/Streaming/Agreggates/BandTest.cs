@@ -1,6 +1,4 @@
-﻿using Domain.Core.AggreggatesBase;
-
-namespace Streaming
+﻿namespace Streaming
 {
     public class BandTest
     {

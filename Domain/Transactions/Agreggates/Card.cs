@@ -1,17 +1,11 @@
-﻿using Domain.Core.AggreggatesBase;
+﻿using Domain.Core.Aggreggates;
 using Domain.Core.ValueObject;
 using Domain.Transactions.ValueObject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace Domain.Transactions.Agreggates
 {
-    public class Card : Base
+    public class Card : BaseModel
     {
         private const int INTERVAL_TRANSACTON = -2;
-        
         private const int REPEAT_TRANSACTON_MERCHANT = 1;
         public Boolean Active { get; set; }
         public Monetary Limit { get; set; }
@@ -31,10 +25,10 @@ namespace Domain.Transactions.Agreggates
                 Description = description,
                 DtTransaction = DateTime.Now,
             };
-            
+
             // Verifica Limite Disponivel 
             this.VerifyLimit(transaction);
-            
+
             // Verificãção de Regras Antifraude
             this.ValidateTransaction(transaction);
 

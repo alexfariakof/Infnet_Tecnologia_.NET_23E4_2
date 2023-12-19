@@ -1,11 +1,12 @@
-﻿using Domain.Core.AggreggatesBase;
-using Domain.Transactions.ValueObject;
+﻿using Domain.Core.Aggreggates;
+using Domain.Streaming.ValueObject;
 
 namespace Domain.Streaming.Agreggates
 {
-    public class Music : Base
+    public class Music<T> : BaseModel
     {
         public String Name { get; set; }
-        public Merchant Duration { get; set; }
+        public Duration Duration { get; set; }
+        public List<T> Playlists { get; set; } = new List<T>();
     }
 }
