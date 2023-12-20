@@ -38,7 +38,7 @@ namespace Domain.Account.Agreggates
                 this.Signatures.FirstOrDefault(x => x.Active).Active = false;
         }
 
-        public String CryptoPasswrod(string openPassword)
+        private static String CryptoPasswrod(string openPassword)
         {
             SHA256 criptoProvider = SHA256.Create();
 
