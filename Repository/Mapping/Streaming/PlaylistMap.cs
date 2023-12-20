@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using Domain.Streaming.Agreggates;
+using Domain.Account.Agreggates;
 
 namespace Repository.Mapping.Streaming
 {
@@ -14,7 +15,23 @@ namespace Repository.Mapping.Streaming
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Name).IsRequired().HasMaxLength(50);
 
-            builder.HasMany(x => x.Musics).WithMany(x => x.Playlists);
+            builder.HasMany(x => x.Musics)
+                    .WithMany(x => x.Playlists)
+                    .UsingEntity<Dictionary<string, object>>(
+                    "MusicPlayList",
+                    j => j
+                        .HasOne<Music<Playlist>>()
+                        .WithMany()
+                        .HasForeignKey("MusicId"),
+                    j => j
+                        .HasOne<Playlist>()
+                        .WithMany()
+                        .HasForeignKey("PlaylistPersonalId"),
+                    j =>
+                    {
+                        j.HasKey("MusicId", "PlaylistPersonalId");
+                        j.Property<DateTime>("DtAdded");
+                    }); ;
         }
     }
 }

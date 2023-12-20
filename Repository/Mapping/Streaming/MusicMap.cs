@@ -10,7 +10,7 @@ namespace Repository.Mapping.Streaming
     {
         public void Configure(EntityTypeBuilder<Music<Playlist>> builder)
         {
-            builder.ToTable(nameof(Music<Playlist>));
+            builder.ToTable("Music");
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
@@ -18,7 +18,7 @@ namespace Repository.Mapping.Streaming
 
             builder.OwnsOne<Duration>(d => d.Duration, c =>
             {
-                c.Property(x => x.Value).IsRequired().HasMaxLength(50);
+                c.Property(x => x.Value).HasColumnName("Duration").IsRequired().HasMaxLength(50);
             });
 
             builder.HasMany(x => x.Playlists).WithMany(m => m.Musics);
@@ -30,7 +30,7 @@ namespace Repository.Mapping.Streaming
         public void Configure(EntityTypeBuilder<Music<PlaylistPersonal>> builder)
         {
 
-            builder.ToTable(nameof(Music<PlaylistPersonal>));
+            builder.ToTable("MusicPersonal");
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
@@ -38,8 +38,9 @@ namespace Repository.Mapping.Streaming
 
             builder.OwnsOne<Duration>(d => d.Duration, c =>
             {
-                c.Property(x => x.Value).IsRequired().HasMaxLength(50);
+                c.Property(x => x.Value).HasColumnName("Duration").IsRequired().HasMaxLength(50);
             });
+
             builder.HasMany(x => x.Playlists).WithMany(m => m.Musics);
         }
     }

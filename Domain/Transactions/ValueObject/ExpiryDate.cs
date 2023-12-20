@@ -6,7 +6,7 @@
         public static implicit operator ExpiryDate((int Month, int Year) values) => new ExpiryDate(values.Month, values.Year);
         public int Month { get; init; }
         public int Year { get; init; }
-        public String Value { get { return this.Formatted_ptBr(); } }
+        public String Value { get { return this.Formatted_ptBr(); } set { value = $"{Month:D2}/{Year % 100:D2}"; } }
         public ExpiryDate(int month, int year)
         {
             if (month < 1 || month > 12)
