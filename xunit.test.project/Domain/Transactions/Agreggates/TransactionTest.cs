@@ -1,4 +1,4 @@
-﻿namespace Domain.Transactions.Agreggates
+﻿namespace Domain.Transactions
 {
     public class TransactionTest
     {

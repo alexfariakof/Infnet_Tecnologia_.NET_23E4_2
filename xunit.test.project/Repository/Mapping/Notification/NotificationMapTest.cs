@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Notifications;
 using __mock__;
 
-namespace Repository.Mapping.Notifications
+namespace Repository.Mapping
 {
     public class NotificationMapTest
     {
@@ -20,10 +20,10 @@ namespace Repository.Mapping.Notifications
                 var builder = new ModelBuilder(new ConventionSet());
                 var configuration = new NotificationMap();
 
-                configuration.Configure(builder.Entity<Notification>());
+                configuration.Configure(builder.Entity<NotificationTest>());
 
                 var model = builder.Model;
-                var entityType = model.FindEntityType(typeof(Notification));
+                var entityType = model.FindEntityType(typeof(NotificationTest));
 
                 // Act
                 var idProperty = entityType.FindProperty("Id");

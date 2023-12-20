@@ -1,4 +1,4 @@
-﻿namespace Domain.Core.Aggreggates
+﻿namespace Domain.Core
 {
     public abstract class PlayListBaseTest
     {

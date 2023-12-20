@@ -1,4 +1,4 @@
-﻿namespace Domain.Streaming.Agreggates
+﻿namespace Domain.Streaming
 {
     public class AlbumTest
     {

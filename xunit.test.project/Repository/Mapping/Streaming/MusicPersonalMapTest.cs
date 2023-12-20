@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore;
 using Domain.Streaming.Agreggates;
+using Domain.Account.Agreggates;
 using Repository.Mapping.Streaming;
 using __mock__;
-using Repository.Mapping.Account;
-using Domain.Account.Agreggates;
 
-namespace Repository.Tests.Mapping.Streaming
+namespace Repository.Mapping
 {
     public class MusicPersonalMapTest
     {

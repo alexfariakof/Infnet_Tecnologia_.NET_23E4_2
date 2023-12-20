@@ -1,7 +1,7 @@
 ﻿using Domain.Transactions.Agreggates;
 using Domain.Transactions.ValueObject;
 
-namespace Domain.Transactions.Agreggates
+namespace Domain.Transactions
 {
     public class CardTest
     {

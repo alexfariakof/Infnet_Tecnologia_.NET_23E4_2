@@ -1,4 +1,4 @@
-﻿namespace Domain.Account.Agreggates
+﻿namespace Domain.Account
 {
     public class CustomerTest
     {

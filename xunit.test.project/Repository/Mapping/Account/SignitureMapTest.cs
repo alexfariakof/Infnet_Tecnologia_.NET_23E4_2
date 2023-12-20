@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Account.Agreggates;
 using __mock__;
 
-namespace Repository.Mapping.Account
+namespace Repository.Mapping
 {
     public class SignitureMapTest
     {

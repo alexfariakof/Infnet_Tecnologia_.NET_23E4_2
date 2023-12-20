@@ -1,6 +1,6 @@
 ﻿using Domain.Core.Aggreggates;
 
-namespace Domain.Streaming.Agreggates
+namespace Domain.Streaming
 {
     public class PlaylistTest
     {

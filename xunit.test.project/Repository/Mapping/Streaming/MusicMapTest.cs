@@ -4,7 +4,7 @@ using Domain.Streaming.Agreggates;
 using Repository.Mapping.Streaming;
 using __mock__;
 
-namespace Repository.Tests.Mapping.Streaming
+namespace Repository.Mapping
 {
     public class MusicMapTest
     {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Streaming.Agreggates;
 using __mock__;
 
-namespace Repository.Mapping.Streaming
+namespace Repository.Mapping
 {
     public class PlaylistMapTest
     {
