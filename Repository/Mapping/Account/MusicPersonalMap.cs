@@ -1,15 +1,16 @@
 ﻿using Domain.Streaming.Agreggates;
 using Domain.Streaming.ValueObject;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Mapping.Streaming
+namespace Domain.Account.Agreggates
 {
-    public class MusicMap : IEntityTypeConfiguration<Music<Playlist>>
+    public class MusicPersonalMap : IEntityTypeConfiguration<Music<PlaylistPersonal>>
     {
-        public void Configure(EntityTypeBuilder<Music<Playlist>> builder)
+        public void Configure(EntityTypeBuilder<Music<PlaylistPersonal>> builder)
         {
-            builder.ToTable("Music");
+
+            builder.ToTable("MusicPersonal");
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
@@ -23,4 +24,5 @@ namespace Repository.Mapping.Streaming
             builder.HasMany(x => x.Playlists).WithMany(m => m.Musics);
         }
     }
+
 }

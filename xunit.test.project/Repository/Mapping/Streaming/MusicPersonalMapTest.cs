@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Domain.Streaming.Agreggates;
 using Domain.Account.Agreggates;
-using Repository.Mapping.Streaming;
 using __mock__;
 
 namespace Repository.Mapping
