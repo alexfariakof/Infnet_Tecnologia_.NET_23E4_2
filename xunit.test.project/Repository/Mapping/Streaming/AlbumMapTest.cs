@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore;
 using Domain.Streaming.Agreggates;
+using Repository.Mapping.Streaming;
 using __mock__;
 
 namespace Repository.Mapping

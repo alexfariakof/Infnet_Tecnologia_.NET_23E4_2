@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore;
 using Domain.Notifications;
+using Repository.Mapping.Notifications;
 using __mock__;
+
 
 namespace Repository.Mapping
 {
@@ -20,10 +22,10 @@ namespace Repository.Mapping
                 var builder = new ModelBuilder(new ConventionSet());
                 var configuration = new NotificationMap();
 
-                configuration.Configure(builder.Entity<NotificationTest>());
+                configuration.Configure(builder.Entity<Notification>());
 
                 var model = builder.Model;
-                var entityType = model.FindEntityType(typeof(NotificationTest));
+                var entityType = model.FindEntityType(typeof(Notification));
 
                 // Act
                 var idProperty = entityType.FindProperty("Id");
