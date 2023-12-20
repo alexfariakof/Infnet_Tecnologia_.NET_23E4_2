@@ -70,9 +70,11 @@ jobs:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |          
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"alexfariakof_Infnet_Tecnologia_.NET_23E4_2" /o:"alexfariakof" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.exclusions="xunit.test.project/**, **/.documents/**" /d:sonar.cs.lcov.reportPaths="**/lcov.info"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"alexfariakof_Infnet_Tecnologia_.NET_23E4_2" /o:"alexfariakof" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.exclusions="xunit.test.project/**, .documents/**" /d:sonar.cs.lcov.reportPaths="**/lcov.info"
           
           # Executa Build Restore com Teste e coleta o GUID gerado          
+          dotnet clean
+          dotnet build --restore
           dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --collect:"XPlat Code Coverage;Format=opencover"
             
             # Encontra o diretório mais recente na pasta TestResults
@@ -92,5 +94,5 @@ jobs:
               dotnet tool install -g dotnet-reportgenerator-globaltool 
               reportgenerator -reports:$baseDirectory\coverage.cobertura.xml -targetdir:$coverageXmlPath\coveragereport -reporttypes:"lcov;" -sourcedirs:$sourceDirs
             }
-          
-          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+            
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}" 
