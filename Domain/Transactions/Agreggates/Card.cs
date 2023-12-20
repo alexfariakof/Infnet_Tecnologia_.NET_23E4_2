@@ -75,7 +75,7 @@ namespace Domain.Transactions.Agreggates
             }
 
         }
-        public String CryptoCVV(string openCVV)
+        private String CryptoCVV(string openCVV)
         {
             SHA256 criptoProvider = SHA256.Create();
 
