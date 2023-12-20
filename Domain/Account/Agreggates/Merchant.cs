@@ -1,9 +1,10 @@
-﻿using Domain.Streaming.Agreggates;
+﻿using Domain.Core.Interfaces;
+using Domain.Streaming.Agreggates;
 using Domain.Transactions.Agreggates;
 
 namespace Domain.Account.Agreggates
 {
-    public class Merchant : Account
+    public class Merchant : Account, IMerchant
     {
         public string CNPJ { get; set; }
 
@@ -22,6 +23,5 @@ namespace Domain.Account.Agreggates
             //Adicionar cartão na conta do usuário
             this.AddCard(card);
         }
-
     }
 }

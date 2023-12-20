@@ -16,7 +16,6 @@ namespace Domain.Account.Agreggates
         public List<Card> Cards { get; set; } = new List<Card>();
         public List<Signature> Signatures { get; set; } = new List<Signature>();
         public List<Notification> Notifications { get; set; } = new List<Notification>();
-                
         public void AddCard(Card card)  => this.Cards.Add(card);
         public void AddFlat(Flat flat, Card card)
         {
@@ -38,12 +37,9 @@ namespace Domain.Account.Agreggates
         }
         protected void DisableActiveSigniture()
         {
-            //Caso tenha alguma assintura ativa, deseativa ela
+            //Caso tenha alguma assintura ativa, destiva a assinatura
             if (this.Signatures.Count > 0 && this.Signatures.Any(x => x.Active))
-            {
-                var planoAtivo = this.Signatures.FirstOrDefault(x => x.Active);
-                planoAtivo.Active = false;
-            }
+                this.Signatures.FirstOrDefault(x => x.Active).Active = false;
         }
         protected String CryptoPasswrod(string senhaAberta)
         {
