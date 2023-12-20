@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore;
 using Domain.Account.Agreggates;
+using Repository.Mapping.Account;
 using __mock__;
 
-namespace Repository.Mapping.Account
+namespace Repository.Mapping
 {
     public class PlaylistPersonalMapTest
     {

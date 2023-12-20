@@ -4,7 +4,7 @@ using Domain.Streaming.Agreggates;
 using Repository.Mapping.Streaming;
 using __mock__;
 
-namespace Repository.Tests.Mapping.Streaming
+namespace Repository.Mapping
 {
     public class MusicMapTest
     {
@@ -40,6 +40,7 @@ namespace Repository.Tests.Mapping.Streaming
                 Assert.False(nameProperty.IsNullable);
                 Assert.Equal(50, nameProperty.GetMaxLength());
                 Assert.False(durationProperty.IsNullable);
+
             }
         }
     }

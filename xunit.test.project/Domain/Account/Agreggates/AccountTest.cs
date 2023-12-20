@@ -1,0 +1,118 @@
+﻿using Domain.Account.Agreggates;
+using Domain.Streaming.Agreggates;
+using Domain.Transactions.Agreggates;
+using Moq;
+
+namespace Domain.Account
+{
+    public class AbstractAccountTests
+    {
+        [Fact]
+        public void Should_AddCard_To_Card_List()
+        {
+            // Arrange
+            var account = new Mock<AbstractAccount>().Object;
+            var card = new Card();
+
+            // Act
+            account.AddCard(card);
+
+            // Assert
+            Assert.Contains(card, account.Cards);
+        }
+
+        [Fact]
+        public void Should_Create_Transaction_And_AddSignature_When_Add_Flat()
+        {
+            // Arrange
+            var accountMock = new Mock<AbstractAccount>();
+            accountMock.VerifyAll();
+
+            var account = accountMock.Object;
+            account.Id = Guid.NewGuid();
+            account.Name = " Account Test ";
+            account.Email = "teste@teste.com";
+            account.Password = "12345!";
+
+            var flat = new Flat
+            {
+                Id = Guid.NewGuid(),
+                Name = "Test Flat",
+                Value = 50.0m,
+                Description = "Test Description"
+            };
+            var cardMock = new Mock<Card>();
+            cardMock.VerifyAll();
+            var card = cardMock.Object;
+
+            card.Id = Guid.NewGuid();
+            card.Number = "999-999-999";
+            card.Active = true;
+            card.Limit = 1000m;
+
+            // Act
+            account.Cards.Add(card);
+            account.AddFlat(flat, card);
+
+            // Assert
+            Mock.Verify(accountMock, cardMock);
+            Assert.Single(account.Signatures, s => s.Flat == flat && s.Active);
+            Assert.Empty(account.Notifications);
+        }
+
+        [Fact]
+        public void Should_Disable_Active_Signature_DisableActiveSigniture()
+        {
+            // Arrange
+            var accountMock = new Mock<AbstractAccount>();
+            var account = accountMock.Object;
+            var activeSignature = new Signature { Active = true };
+            var inactiveSignature = new Signature { Active = false };
+            account.Signatures.Add(activeSignature);
+            account.Signatures.Add(inactiveSignature);
+            var flat = new Flat
+            {
+                Id = Guid.NewGuid(),
+                Name = "Test Flat",
+                Value = 50.0m,
+                Description = "Test Description"
+            };
+            var cardMock = new Mock<Card>();
+            cardMock.VerifyAll();
+            var card = cardMock.Object;
+
+            card.Id = Guid.NewGuid();
+            card.Number = "999-999-999";
+            card.Active = true;
+            card.Limit = 1000m;
+
+
+            // Act
+            account.AddFlat(flat, card);
+
+            // Assert
+            Mock.Verify(accountMock, cardMock);
+            Assert.Single(account.Signatures, s => s.Flat == flat && s.Active);
+            Assert.False(activeSignature.Active);
+            Assert.False(inactiveSignature.Active);
+            Assert.Empty(account.Notifications);
+        }
+
+        [Fact]
+        public void Should_Return_Hash_CryptoPassword()
+        {
+            // Arrange
+            var accountMock = new Mock<AbstractAccount>();
+            accountMock.VerifyAll();
+            var openPassword = "12345!";
+
+            // Act 
+            var cryptoPassword = accountMock.Object.CryptoPasswrod(openPassword);
+
+            // Assert
+            Mock.Verify(accountMock);
+            Assert.NotNull(cryptoPassword);
+            Assert.IsType<String>(cryptoPassword);
+        }
+    }
+}

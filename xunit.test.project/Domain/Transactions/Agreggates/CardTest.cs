@@ -1,7 +1,7 @@
 ﻿using Domain.Transactions.Agreggates;
 using Domain.Transactions.ValueObject;
 
-namespace Domain.Transactions.Agreggates
+namespace Domain.Transactions
 {
     public class CardTest
     {
@@ -161,7 +161,6 @@ namespace Domain.Transactions.Agreggates
                 () => card.CreateTransaction(merchant, 19M, "Dummy Transacao"));
         }
 
-
         [Fact]
         public void Should_Not_Create_Transaction_With_Frequency()
         {
@@ -235,7 +234,5 @@ namespace Domain.Transactions.Agreggates
             Assert.Throws<Exception>(
                 () => card.CreateTransaction(merchant, 19M, "Dummy Transacao"));
         }
-
-
     }
 }
