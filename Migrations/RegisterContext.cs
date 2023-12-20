@@ -21,7 +21,7 @@ namespace Migrations
         public DbSet<Band> Band{ get; set; }
         public DbSet<Flat> Flat{ get; set; }
         public DbSet<Music<Playlist>> Music { get; set; }
-        public DbSet<Music<PlaylistPersonal>> MusicPersonal { get; set; }
+        //public DbSet<Music<PlaylistPersonal>> MusicPersonal { get; set; }
         public DbSet<Playlist> Playlist{ get; set; }
         public DbSet<Card> Card{ get; set; }
         public DbSet<Transaction> Transaction { get; set; }

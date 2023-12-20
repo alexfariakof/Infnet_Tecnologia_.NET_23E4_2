@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using Domain.Streaming.Agreggates;
-using Domain.Account.Agreggates;
 
 namespace Repository.Mapping.Streaming
 {
@@ -26,10 +25,10 @@ namespace Repository.Mapping.Streaming
                     j => j
                         .HasOne<Playlist>()
                         .WithMany()
-                        .HasForeignKey("PlaylistPersonalId"),
+                        .HasForeignKey("PlaylistId"),
                     j =>
                     {
-                        j.HasKey("MusicId", "PlaylistPersonalId");
+                        j.HasKey("MusicId", "PlaylistId");
                         j.Property<DateTime>("DtAdded");
                     });
         }

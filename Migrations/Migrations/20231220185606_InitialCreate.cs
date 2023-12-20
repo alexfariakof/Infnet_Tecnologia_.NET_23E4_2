@@ -76,20 +76,6 @@ namespace Migrations.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "MusicPersonal",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
-                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    Duration = table.Column<int>(type: "int", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MusicPersonal", x => x.Id);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Album",
                 columns: table => new
                 {
@@ -272,28 +258,22 @@ namespace Migrations.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "MusicPlayListPersonal",
+                name: "MusicPersonal",
                 columns: table => new
                 {
-                    MusicId = table.Column<Guid>(type: "char(36)", nullable: false),
-                    PlaylistPersonalId = table.Column<Guid>(type: "char(36)", nullable: false),
-                    DtAdded = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Duration = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    AlbumId = table.Column<Guid>(type: "char(36)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MusicPlayListPersonal", x => new { x.MusicId, x.PlaylistPersonalId });
+                    table.PrimaryKey("PK_MusicPersonal", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MusicPlayListPersonal_MusicPersonal_MusicId",
-                        column: x => x.MusicId,
-                        principalTable: "MusicPersonal",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MusicPlayListPersonal_PlaylistPersonal_PlaylistPersonalId",
-                        column: x => x.PlaylistPersonalId,
-                        principalTable: "PlaylistPersonal",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_MusicPersonal_Album_AlbumId",
+                        column: x => x.AlbumId,
+                        principalTable: "Album",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -325,12 +305,12 @@ namespace Migrations.Migrations
                 columns: table => new
                 {
                     MusicId = table.Column<Guid>(type: "char(36)", nullable: false),
-                    PlaylistPersonalId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    PlaylistId = table.Column<Guid>(type: "char(36)", nullable: false),
                     DtAdded = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MusicPlayList", x => new { x.MusicId, x.PlaylistPersonalId });
+                    table.PrimaryKey("PK_MusicPlayList", x => new { x.MusicId, x.PlaylistId });
                     table.ForeignKey(
                         name: "FK_MusicPlayList_Music_MusicId",
                         column: x => x.MusicId,
@@ -338,9 +318,35 @@ namespace Migrations.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MusicPlayList_Playlist_PlaylistPersonalId",
-                        column: x => x.PlaylistPersonalId,
+                        name: "FK_MusicPlayList_Playlist_PlaylistId",
+                        column: x => x.PlaylistId,
                         principalTable: "Playlist",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "MusicPlayListPersonal",
+                columns: table => new
+                {
+                    MusicId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    PlaylistPersonalId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    DtAdded = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MusicPlayListPersonal", x => new { x.MusicId, x.PlaylistPersonalId });
+                    table.ForeignKey(
+                        name: "FK_MusicPlayListPersonal_MusicPersonal_MusicId",
+                        column: x => x.MusicId,
+                        principalTable: "MusicPersonal",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MusicPlayListPersonal_PlaylistPersonal_PlaylistPersonalId",
+                        column: x => x.PlaylistPersonalId,
+                        principalTable: "PlaylistPersonal",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -367,9 +373,14 @@ namespace Migrations.Migrations
                 column: "AlbumId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MusicPlayList_PlaylistPersonalId",
+                name: "IX_MusicPersonal_AlbumId",
+                table: "MusicPersonal",
+                column: "AlbumId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MusicPlayList_PlaylistId",
                 table: "MusicPlayList",
-                column: "PlaylistPersonalId");
+                column: "PlaylistId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MusicPlayListPersonal_PlaylistPersonalId",
@@ -455,10 +466,10 @@ namespace Migrations.Migrations
                 name: "Card");
 
             migrationBuilder.DropTable(
-                name: "Album");
+                name: "Flat");
 
             migrationBuilder.DropTable(
-                name: "Flat");
+                name: "Album");
 
             migrationBuilder.DropTable(
                 name: "Customer");

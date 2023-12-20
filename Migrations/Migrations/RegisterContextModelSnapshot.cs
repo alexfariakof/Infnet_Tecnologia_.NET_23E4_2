@@ -259,12 +259,17 @@ namespace Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid?>("AlbumId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AlbumId");
 
                     b.ToTable("MusicPersonal", (string)null);
                 });
@@ -374,15 +379,15 @@ namespace Migrations.Migrations
                     b.Property<Guid>("MusicId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("PlaylistPersonalId")
+                    b.Property<Guid>("PlaylistId")
                         .HasColumnType("char(36)");
 
                     b.Property<DateTime>("DtAdded")
                         .HasColumnType("datetime(6)");
 
-                    b.HasKey("MusicId", "PlaylistPersonalId");
+                    b.HasKey("MusicId", "PlaylistId");
 
-                    b.HasIndex("PlaylistPersonalId");
+                    b.HasIndex("PlaylistId");
 
                     b.ToTable("MusicPlayList");
                 });
@@ -489,6 +494,10 @@ namespace Migrations.Migrations
 
             modelBuilder.Entity("Domain.Streaming.Agreggates.Music<Domain.Account.Agreggates.PlaylistPersonal>", b =>
                 {
+                    b.HasOne("Domain.Streaming.Agreggates.Album", null)
+                        .WithMany("MusicPersonal")
+                        .HasForeignKey("AlbumId");
+
                     b.OwnsOne("Domain.Streaming.ValueObject.Duration", "Duration", b1 =>
                         {
                             b1.Property<Guid>("Music<PlaylistPersonal>Id")
@@ -672,7 +681,7 @@ namespace Migrations.Migrations
 
                     b.HasOne("Domain.Streaming.Agreggates.Playlist", null)
                         .WithMany()
-                        .HasForeignKey("PlaylistPersonalId")
+                        .HasForeignKey("PlaylistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -715,6 +724,8 @@ namespace Migrations.Migrations
             modelBuilder.Entity("Domain.Streaming.Agreggates.Album", b =>
                 {
                     b.Navigation("Music");
+
+                    b.Navigation("MusicPersonal");
                 });
 
             modelBuilder.Entity("Domain.Streaming.Agreggates.Band", b =>
