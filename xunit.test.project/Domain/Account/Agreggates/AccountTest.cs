@@ -1,4 +1,5 @@
-﻿using Domain.Account.Agreggates;
+﻿using __mock__;
+using Domain.Account.Agreggates;
 using Domain.Streaming.Agreggates;
 using Domain.Transactions.Agreggates;
 using Moq;
@@ -12,7 +13,7 @@ namespace Domain.Account
         {
             // Arrange
             var account = new Mock<AbstractAccount>().Object;
-            var card = new Card();
+            var card = MockCard.GetFaker();
 
             // Act
             account.AddCard(card);
@@ -45,10 +46,13 @@ namespace Domain.Account
             cardMock.VerifyAll();
             var card = cardMock.Object;
 
-            card.Id = Guid.NewGuid();
-            card.Number = "999-999-999";
+            var mockCard = MockCard.GetFaker();
+            card.Id = mockCard.Id;
+            card.Number = mockCard.Number;
+            card.Validate = mockCard.Validate;
+            card.CVV = mockCard.CVV;
             card.Active = true;
-            card.Limit = 1000m;
+            card.Limit = mockCard.Limit;
 
             // Act
             account.Cards.Add(card);
@@ -81,11 +85,13 @@ namespace Domain.Account
             cardMock.VerifyAll();
             var card = cardMock.Object;
 
-            card.Id = Guid.NewGuid();
-            card.Number = "999-999-999";
+            var mockCard = MockCard.GetFaker();
+            card.Id = mockCard.Id;
+            card.Number = mockCard.Number;
+            card.Validate = mockCard.Validate;
+            card.CVV = mockCard.CVV;
             card.Active = true;
-            card.Limit = 1000m;
-
+            card.Limit = mockCard.Limit;
 
             // Act
             account.AddFlat(flat, card);

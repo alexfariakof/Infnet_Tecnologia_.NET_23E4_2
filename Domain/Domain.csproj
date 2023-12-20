@@ -7,8 +7,4 @@
     <SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Account\ValueObject\" />
-  </ItemGroup>
-
 </Project>

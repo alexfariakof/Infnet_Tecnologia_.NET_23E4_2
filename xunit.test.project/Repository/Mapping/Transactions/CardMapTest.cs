@@ -13,7 +13,7 @@ namespace Repository.Mapping
         {
             // Arrange
             var options = new DbContextOptionsBuilder<MockRegisterContext>()
-                .UseInMemoryDatabase(databaseName: "InMemoryDatabase")
+                .UseInMemoryDatabase(databaseName: "InMemoryDatabase_CardMap")
                 .Options;
 
             using (var context = new MockRegisterContext(options))
@@ -30,19 +30,26 @@ namespace Repository.Mapping
                 var idProperty = entityType.FindProperty("Id");
                 var activeProperty = entityType.FindProperty("Active");
                 var numberProperty = entityType.FindProperty("Number");
-                var limitProperty = entityType.FindProperty("Limit");
-                
+                var validateProperty = entityType.FindNavigation("Validate").ForeignKey.Properties.First();
+                var cvvProperty = entityType.FindProperty("CVV");
+                var limitProperty = entityType.FindNavigation("Limit").ForeignKey.Properties.First();
+
                 // Assert
                 Assert.NotNull(idProperty);
                 Assert.NotNull(activeProperty);
                 Assert.NotNull(numberProperty);
-                //Assert.NotNull(limitProperty);
+                Assert.NotNull(validateProperty);
+                Assert.NotNull(cvvProperty);
+                Assert.NotNull(limitProperty);
 
                 Assert.True(idProperty.IsPrimaryKey());
                 Assert.False(activeProperty.IsNullable);
                 Assert.False(numberProperty.IsNullable);
-                Assert.Equal(100, numberProperty.GetMaxLength());
-                //Assert.False(limitProperty.IsNullable);
+                Assert.Equal(19, numberProperty.GetMaxLength());
+                Assert.False(validateProperty.IsNullable);
+                Assert.False(cvvProperty.IsNullable);
+                Assert.Equal(255, cvvProperty.GetMaxLength());
+                Assert.False(limitProperty.IsNullable);
             }
         }
     }

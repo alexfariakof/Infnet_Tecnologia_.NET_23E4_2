@@ -13,7 +13,7 @@ namespace Repository.Mapping
         {
             // Arrange
             var options = new DbContextOptionsBuilder<MockRegisterContext>()
-                .UseInMemoryDatabase(databaseName: "InMemoryDatabase_MusicMap")
+                .UseInMemoryDatabase(databaseName: "InMemoryDatabase_MusicMap_MusicMapTest")
                 .Options;
 
             using (var context = new MockRegisterContext(options))

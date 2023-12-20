@@ -1,4 +1,5 @@
-﻿using Domain.Account.Agreggates;
+﻿using __mock__;
+using Domain.Account.Agreggates;
 using Domain.Streaming.Agreggates;
 using Domain.Transactions.Agreggates;
 using Moq;
@@ -23,13 +24,9 @@ namespace Domain.Account
                 
             };
 
-            var card = new Card
-            {
-                Id = Guid.NewGuid(),
-                Number = "999-999-999",
-                Active = true,
-                Limit = 1000m
-            };
+            var card = MockCard.GetFaker();
+            card.Active = true;
+
             var openPassword = "12345!";
 
             // Act

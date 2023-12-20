@@ -14,7 +14,7 @@ namespace Repository.Mapping.Account
             builder.Property(x => x.Id).ValueGeneratedOnAdd();            
             builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
             builder.Property(x => x.Email).IsRequired().HasMaxLength(150);
-            builder.Property(x => x.Password).IsRequired().HasMaxLength(100);
+            builder.Property(x => x.Password).IsRequired().HasMaxLength(255);
             builder.Property(x => x.Birth).IsRequired();
             builder.Property(x => x.CPF).IsRequired().HasMaxLength(14);
 
