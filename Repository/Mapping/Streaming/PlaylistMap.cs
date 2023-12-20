@@ -31,7 +31,7 @@ namespace Repository.Mapping.Streaming
                     {
                         j.HasKey("MusicId", "PlaylistPersonalId");
                         j.Property<DateTime>("DtAdded");
-                    }); ;
+                    });
         }
     }
 }
