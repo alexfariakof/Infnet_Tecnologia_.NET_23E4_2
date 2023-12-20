@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunit.Test.Project", "xunit
 		{E37175AA-C02D-4379-8931-175751FB9E7C} = {E37175AA-C02D-4379-8931-175751FB9E7C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{FE78B085-F7AE-42D4-A855-7F0663E58044}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{FE78B085-F7AE-42D4-A855-7F0663E58044}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E37175AA-C02D-4379-8931-175751FB9E7C} = {E37175AA-C02D-4379-8931-175751FB9E7C}
 	EndProjectSection
@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E5B92FE2-DCD7-4675-85B3-E367EB0C7375}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		generate_coverage_report.ps1 = generate_coverage_report.ps1
 	EndProjectSection
 EndProject
 Global

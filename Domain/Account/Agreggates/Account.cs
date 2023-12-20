@@ -16,6 +16,7 @@ namespace Domain.Account.Agreggates
         public List<Card> Cards { get; set; } = new List<Card>();
         public List<Signature> Signatures { get; set; } = new List<Signature>();
         public List<Notification> Notifications { get; set; } = new List<Notification>();
+                
         public void AddCard(Card card)  => this.Cards.Add(card);
         public void AddFlat(Flat flat, Card card)
         {
