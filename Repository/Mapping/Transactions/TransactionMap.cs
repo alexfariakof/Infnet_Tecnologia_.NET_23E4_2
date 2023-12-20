@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Domain.Transactions.ValueObject;
 using Domain.Transactions.Agreggates;
+using Domain.Core.ValueObject;
 
 namespace Repository.Mapping.Transactions
 {
@@ -16,9 +17,19 @@ namespace Repository.Mapping.Transactions
             builder.Property(x => x.DtTransaction).IsRequired();
             builder.Property(x => x.Description).IsRequired().HasMaxLength(50);
 
+            builder.OwnsOne<Monetary>(d => d.Value, c =>
+            {
+                c.Property(x => x.Value).HasColumnName("Monetary").IsRequired();
+            });
+
             builder.OwnsOne<Merchant>(d => d.Merchant, c =>
             {
-                c.Property(x => x.Name).HasColumnName("MerchantNome").IsRequired();
+                c.Property(x => x.Name).HasColumnName("MerchantName").IsRequired();
+            });
+
+            builder.OwnsOne<Merchant>(d => d.Merchant, c =>
+            {
+                c.Property(x => x.CNPJ).HasColumnName("MerchantCNPJ").IsRequired();
             });
 
         }

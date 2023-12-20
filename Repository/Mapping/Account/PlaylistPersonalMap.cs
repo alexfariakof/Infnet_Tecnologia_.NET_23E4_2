@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using Domain.Account.Agreggates;
+using Domain.Streaming.Agreggates;
 
 namespace Repository.Mapping.Account
 {
@@ -16,7 +17,23 @@ namespace Repository.Mapping.Account
             builder.Property(x => x.IsPublic).IsRequired();
             builder.Property(x => x.DtCreated).IsRequired();
 
-            builder.HasMany(x => x.Musics).WithMany(x => x.Playlists);
+            builder.HasMany(x => x.Musics)
+                   .WithMany(x => x.Playlists)
+                   .UsingEntity<Dictionary<string, object>>(
+                    "MusicPlayListPersonal",
+                    j => j
+                        .HasOne<Music<PlaylistPersonal>>()
+                        .WithMany()
+                        .HasForeignKey("MusicId"),
+                    j => j
+                        .HasOne<PlaylistPersonal>()
+                        .WithMany()
+                        .HasForeignKey("PlaylistPersonalId"),
+                    j =>
+                    {
+                        j.HasKey("MusicId", "PlaylistPersonalId");
+                        j.Property<DateTime>("DtAdded");
+                    }); 
         } 
     }
 }

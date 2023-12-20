@@ -18,7 +18,7 @@ namespace Repository.Mapping.Streaming
 
             builder.OwnsOne<Monetary>(d => d.Value, c =>
             {
-                c.Property(x => x.Value).IsRequired();
+                c.Property(x => x.Value).HasColumnName("Monetary").IsRequired();
             });
         }
     }
