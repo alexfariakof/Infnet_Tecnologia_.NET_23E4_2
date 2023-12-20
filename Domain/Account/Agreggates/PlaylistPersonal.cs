@@ -9,6 +9,6 @@ namespace Domain.Account.Agreggates
         public bool IsPublic { get; set; }
         public DateTime DtCreated { get; set; }
         public string Name { get; set; }
-        public List<Music<PlaylistPersonal>> Musics { get ; set ; }
+        public List<Music<PlaylistPersonal>> Musics { get ; set ; } = new List<Music<PlaylistPersonal>>();
     }
 }
