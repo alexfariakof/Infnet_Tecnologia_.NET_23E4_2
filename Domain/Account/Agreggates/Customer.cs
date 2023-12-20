@@ -11,15 +11,15 @@ namespace Domain.Account.Agreggates
         public DateTime Birth { get; set; }
         public List<PlaylistPersonal> Playlists { get; set; } = new List<PlaylistPersonal>();
 
-        public void CreateAccount(string nome, string email, string senha, string cpf,  DateTime dtNascimento, Flat flat, Card card)
+        public void CreateAccount(string nome, string email, string password, string cpf,  DateTime birth, Flat flat, Card card)
         {
             this.Name = nome;
             this.Email = email;
-            this.Birth = dtNascimento;
+            this.Birth = birth;
             this.CPF = cpf;
 
             //Criptografar a senha
-            this.Password = this.CryptoPasswrod(senha);
+            this.Password = this.CryptoPasswrod(password);
 
             //Assinar um plano
             this.AddFlat(flat, card);

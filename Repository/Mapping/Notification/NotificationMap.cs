@@ -19,7 +19,6 @@ namespace Repository.Mapping.Notifications
 
             builder.HasOne(x => x.Destination).WithMany(x => x.Notifications).IsRequired().OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x => x.Sender).WithMany().IsRequired(false);
-
         }
     }
 }

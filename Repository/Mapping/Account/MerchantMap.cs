@@ -4,7 +4,7 @@ using Domain.Account.Agreggates;
 
 namespace Repository.Mapping.Account
 {
-    internal class MerchantMap : IEntityTypeConfiguration<Merchant>
+    public class MerchantMap : IEntityTypeConfiguration<Merchant>
     {
         public void Configure(EntityTypeBuilder<Merchant> builder)
         {
