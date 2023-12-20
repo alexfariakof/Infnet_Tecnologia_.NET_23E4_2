@@ -54,9 +54,9 @@ namespace Domain.Account.Agreggates
             var cardInfo = CreditCardBrandInfo.IdentifyCard(creditCardNumber);
 
             if (!cardInfo.IsValid)
-                throw new Exception($"Cartão { cardInfo.Name } inválido.");
+                throw new ArgumentException($"Cartão { cardInfo.Name } inválido.");
             else if (cardInfo.Brand == CreditCardBrandInfo.CreditCardBrand.Invalid)
-                throw new Exception($"Cartão { cardInfo.Name }.");                
+                throw new ArgumentException($"Cartão { cardInfo.Name }.");                
 
         }
 
