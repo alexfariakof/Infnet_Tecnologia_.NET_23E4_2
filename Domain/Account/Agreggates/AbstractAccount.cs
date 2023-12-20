@@ -49,7 +49,7 @@ namespace Domain.Account.Agreggates
             return Convert.ToHexString(criptoResult);
         }
 
-        private void IsValidCreditCard(string creditCardNumber)
+        private static void IsValidCreditCard(string creditCardNumber)
         {
             var cardInfo = CreditCardBrandInfo.IdentifyCard(creditCardNumber);
 
