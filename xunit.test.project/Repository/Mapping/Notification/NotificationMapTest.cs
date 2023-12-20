@@ -14,7 +14,7 @@ namespace Repository.Mapping
         {
             // Arrange
             var options = new DbContextOptionsBuilder<MockRegisterContext>()
-                .UseInMemoryDatabase(databaseName: "InMemoryDatabase")
+                .UseInMemoryDatabase(databaseName: "InMemoryDatabase_NotificationMapTest")
                 .Options;
 
             using (var context = new MockRegisterContext(options))
