@@ -1,7 +1,6 @@
-﻿
-namespace Domain.Streaming.ValueObject
+﻿namespace Domain.Streaming.ValueObject
 {
-    public class Duration
+    public record Duration
     {
         public int Value { get; set; }
         public static implicit operator int(Duration d) => d.Value;
@@ -20,7 +19,7 @@ namespace Domain.Streaming.ValueObject
             int minutos = Value / 60;
             int segundos = Value % 60;
 
-            return $"{minutos.ToString().PadLeft(1, '0')}:{segundos.ToString().PadLeft(1, '0')}";
+            return $"{minutos.ToString().PadLeft(2, '0')}:{segundos.ToString().PadLeft(2, '0')}";
         }
     }
 }

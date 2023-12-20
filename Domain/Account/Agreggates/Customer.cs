@@ -3,7 +3,7 @@ using Domain.Transactions.Agreggates;
 
 namespace Domain.Account.Agreggates
 {
-    public class Customer : Account
+    public class Customer : AbstractAccount, IAbstractAccount
     {
         private const string PLAYLIST_NAME = "Favoritas";
         public string CPF { get; set; }

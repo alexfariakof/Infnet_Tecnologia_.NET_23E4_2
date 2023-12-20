@@ -13,7 +13,7 @@ namespace Domain.Notifications
         public NotificationType NotificationType { get; set; }
 
 
-        public static Notification Criar(string titlle, string message, NotificationType notificationType, Customer destination, Customer sender = null)
+        public static Notification Create(string titlle, string message, NotificationType notificationType, Customer destination, Customer sender = null)
         {
             if (notificationType == NotificationType.User && sender == null)
                 throw new ArgumentNullException("Para tipo de mensagem 'usuário', você deve informar quem foi o remetente");

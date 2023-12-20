@@ -161,7 +161,6 @@ namespace Domain.Transactions
                 () => card.CreateTransaction(merchant, 19M, "Dummy Transacao"));
         }
 
-
         [Fact]
         public void Should_Not_Create_Transaction_With_Frequency()
         {
@@ -235,7 +234,5 @@ namespace Domain.Transactions
             Assert.Throws<Exception>(
                 () => card.CreateTransaction(merchant, 19M, "Dummy Transacao"));
         }
-
-
     }
 }

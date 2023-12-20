@@ -4,7 +4,7 @@ using Domain.Transactions.Agreggates;
 
 namespace Domain.Account.Agreggates
 {
-    public class Merchant : Account, IMerchant
+    public class Merchant : AbstractAccount, IMerchant
     {
         public string CNPJ { get; set; }
 

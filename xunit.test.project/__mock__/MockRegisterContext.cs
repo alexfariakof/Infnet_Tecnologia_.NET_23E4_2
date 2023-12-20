@@ -29,4 +29,3 @@ namespace __mock__
         }
     }
 }
-
