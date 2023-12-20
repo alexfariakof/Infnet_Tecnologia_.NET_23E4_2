@@ -41,6 +41,7 @@ namespace Domain.Account.Agreggates
             if (this.Signatures.Count > 0 && this.Signatures.Any(x => x.Active))
                 this.Signatures.FirstOrDefault(x => x.Active).Active = false;
         }
+
         protected String CryptoPasswrod(string senhaAberta)
         {
             SHA256 criptoProvider = SHA256.Create();
