@@ -20,7 +20,7 @@ namespace Domain.Account.Agreggates
         public void AddCard(Card card) => this.Cards.Add(card);
         public void AddFlat(Flat flat, Card card)
         {
-            this.IsValidCreditCard(card.Number);
+            IsValidCreditCard(card.Number);
             var merchant = new Transactions.ValueObject.Merchant() { Name = flat.Name };
             card.CreateTransaction(merchant, new Monetary(flat.Value), flat.Description);
             DisableActiveSigniture();
@@ -38,7 +38,7 @@ namespace Domain.Account.Agreggates
                 this.Signatures.FirstOrDefault(x => x.Active).Active = false;
         }
 
-        private static String CryptoPasswrod(string openPassword)
+        public String CryptoPasswrod(string openPassword)
         {
             SHA256 criptoProvider = SHA256.Create();
 
