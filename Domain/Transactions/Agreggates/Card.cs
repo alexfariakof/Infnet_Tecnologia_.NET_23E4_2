@@ -1,6 +1,9 @@
 ﻿using Domain.Core.Aggreggates;
 using Domain.Core.ValueObject;
 using Domain.Transactions.ValueObject;
+using System.Security.Cryptography;
+using System.Text;
+
 namespace Domain.Transactions.Agreggates
 {
     public class Card : BaseModel
@@ -10,8 +13,15 @@ namespace Domain.Transactions.Agreggates
         public Boolean Active { get; set; }
         public Monetary Limit { get; set; }
         public String Number { get; set; }
+        public ExpiryDate Validate { get; set; }
+        
+        private string _cvv;
+        public string CVV
+        {
+            get { return _cvv; }
+            set { _cvv = CryptoCVV(value); }
+        }
         public List<Transaction> Transactions { get; set; } = new List<Transaction>();
-
 
         public void CreateTransaction(Merchant merchant, Monetary value, string description = "")
         {
@@ -65,7 +75,16 @@ namespace Domain.Transactions.Agreggates
             }
 
         }
+        public String CryptoCVV(string openCVV)
+        {
+            SHA256 criptoProvider = SHA256.Create();
 
+            byte[] btexto = Encoding.UTF8.GetBytes(openCVV);
+
+            var criptoResult = criptoProvider.ComputeHash(btexto);
+
+            return Convert.ToHexString(criptoResult);
+        }
         private void IsCardActive()
         {
             if (!this.Active)

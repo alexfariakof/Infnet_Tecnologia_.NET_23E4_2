@@ -13,7 +13,7 @@ namespace Repository.Mapping
         {
             // Arrange
             var options = new DbContextOptionsBuilder<MockRegisterContext>()
-                .UseInMemoryDatabase(databaseName: "InMemoryDatabase")
+                .UseInMemoryDatabase(databaseName: "InMemoryDatabase_CustomerMapTest")
                 .Options;
 
             using (var context = new MockRegisterContext(options))
@@ -48,7 +48,7 @@ namespace Repository.Mapping
                 Assert.False(emailProperty.IsNullable);
                 Assert.Equal(150, emailProperty.GetMaxLength());
                 Assert.False(passwordProperty.IsNullable);
-                Assert.Equal(100, passwordProperty.GetMaxLength());
+                Assert.Equal(255, passwordProperty.GetMaxLength());
                 Assert.False(birthProperty.IsNullable);
                 Assert.False(cpfProperty.IsNullable);
                 Assert.Equal(14, cpfProperty.GetMaxLength());
