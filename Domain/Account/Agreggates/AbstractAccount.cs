@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Domain.Account.Agreggates
 {
-    public abstract class AbstractAccount : BaseModel, IAbstractAccount
+    public abstract class AbstractAccount : BaseModel
     {
         public string Name { get; set; }
         public string Email { get; set; }
@@ -46,13 +46,5 @@ namespace Domain.Account.Agreggates
 
             return Convert.ToHexString(criptoResult);
         }
-    }
-
-    public interface IAbstractAccount
-    {
-
-        public void AddCard(Card card);
-        public void AddFlat(Flat flat, Card card);
-        public String CryptoPasswrod(string openPassword);
     }
 }

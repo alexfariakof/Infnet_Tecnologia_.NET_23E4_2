@@ -40,6 +40,7 @@ namespace Repository.Mapping
                 Assert.False(nameProperty.IsNullable);
                 Assert.Equal(50, nameProperty.GetMaxLength());
                 Assert.False(durationProperty.IsNullable);
+
             }
         }
     }
