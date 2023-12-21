@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Migrations.Migrations
+namespace Migrations_MySqlServer.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -145,9 +145,8 @@ namespace Migrations.Migrations
                     Active = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Limit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Number = table.Column<string>(type: "varchar(19)", maxLength: 19, nullable: false),
-                    Validate_Month = table.Column<int>(type: "int", nullable: false),
-                    Validate_Year = table.Column<int>(type: "int", nullable: false),
-                    Validate = table.Column<string>(type: "longtext", nullable: false),
+                    Brand = table.Column<string>(type: "varchar(12)", maxLength: 12, nullable: false),
+                    Validate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CVV = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     CustomerId = table.Column<Guid>(type: "char(36)", nullable: true),
                     MerchantId = table.Column<Guid>(type: "char(36)", nullable: true)

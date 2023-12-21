@@ -8,7 +8,7 @@ using Repository.Mapping.Notifications;
 using Repository.Mapping.Streaming;
 using Repository.Mapping.Transactions;
 
-namespace Migrations
+namespace Infrastructure
 {
     public class RegisterContext: DbContext
     {

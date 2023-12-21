@@ -17,11 +17,19 @@ namespace Repository.Mapping.Transactions
             builder.Property(x => x.Active).IsRequired();
             builder.Property(x => x.Number).IsRequired().HasMaxLength(19);            
             builder.Property(x => x.CVV).IsRequired().HasMaxLength(255);
-                        
-            builder.OwnsOne<ExpiryDate>(e => e.Validate, c =>
+
+            builder.OwnsOne<CreditCardBrandInfo>(e => e.CardBrand, c =>
             {
-                c.Property(x => x.Value).HasColumnName("Validate").IsRequired();
+                c.Ignore(e => e.Brand);
+                c.Property(x => x.Name).HasColumnName("Brand").HasMaxLength(12).IsRequired();
             });
+
+            builder.OwnsOne<ExpiryDate>(e => e.Validate, (Action<OwnedNavigationBuilder<Card, ExpiryDate>>)(c =>
+            {
+                c.Ignore(e => e.Month);
+                c.Ignore(e => e.Year);
+                c.Property(x => x.Value).HasColumnName("Validate").IsRequired();
+            }));
 
             builder.OwnsOne<Monetary>(d => d.Limit, c =>
             {

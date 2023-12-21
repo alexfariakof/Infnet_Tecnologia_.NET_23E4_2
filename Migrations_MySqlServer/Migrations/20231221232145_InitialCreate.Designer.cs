@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Migrations;
+using Migrations_MySqlServer;
 
 #nullable disable
 
-namespace Migrations.Migrations
+namespace Migrations_MySqlServer.Migrations
 {
-    [DbContext(typeof(RegisterContext))]
-    [Migration("20231220185606_InitialCreate")]
+    [DbContext(typeof(MySqlContext))]
+    [Migration("20231221232145_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -589,21 +589,16 @@ namespace Migrations.Migrations
                                 .HasForeignKey("CardId");
                         });
 
-                    b.OwnsOne("Domain.Transactions.ValueObject.ExpiryDate", "Validate", b1 =>
+                    b.OwnsOne("Domain.Transactions.ValueObject.CreditCardBrandInfo", "CardBrand", b1 =>
                         {
                             b1.Property<Guid>("CardId")
                                 .HasColumnType("char(36)");
 
-                            b1.Property<int>("Month")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Value")
+                            b1.Property<string>("Name")
                                 .IsRequired()
-                                .HasColumnType("longtext")
-                                .HasColumnName("Validate");
-
-                            b1.Property<int>("Year")
-                                .HasColumnType("int");
+                                .HasMaxLength(12)
+                                .HasColumnType("varchar(12)")
+                                .HasColumnName("Brand");
 
                             b1.HasKey("CardId");
 
@@ -612,6 +607,26 @@ namespace Migrations.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("CardId");
                         });
+
+                    b.OwnsOne("Domain.Transactions.ValueObject.ExpiryDate", "Validate", b1 =>
+                        {
+                            b1.Property<Guid>("CardId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<DateTime>("Value")
+                                .HasColumnType("datetime(6)")
+                                .HasColumnName("Validate");
+
+                            b1.HasKey("CardId");
+
+                            b1.ToTable("Card");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CardId");
+                        });
+
+                    b.Navigation("CardBrand")
+                        .IsRequired();
 
                     b.Navigation("Limit")
                         .IsRequired();

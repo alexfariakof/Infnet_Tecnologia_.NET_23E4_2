@@ -1,15 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using Migrations;
+using Migrations_MySqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<RegisterContext>(options =>
+builder.Services.AddDbContext<MySqlContext>(options =>
 options.UseMySQL(builder.Configuration.GetConnectionString("MySqlConnectionString")));
 
-
-
 var app = builder.Build();
-
-app.MapGet("/", () => "Hello World!");
-
+app.MapGet("/", () => "Migrations Mysql Server!");
 app.Run();

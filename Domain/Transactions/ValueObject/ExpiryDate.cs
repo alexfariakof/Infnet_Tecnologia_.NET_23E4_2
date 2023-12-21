@@ -1,25 +1,34 @@
-﻿namespace Domain.Transactions.ValueObject
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain.Transactions.ValueObject
 {
     public record ExpiryDate
     {
         public static implicit operator (int Month, int Year)(ExpiryDate expiryDate) => (expiryDate.Month, expiryDate.Year);
-        public static implicit operator ExpiryDate((int Month, int Year) values) => new ExpiryDate(values.Month, values.Year);
+        public static implicit operator ExpiryDate((int Month, int Year) values) => new ExpiryDate(values);
+        public DateTime Value { get; set; }
+        
+        [NotMapped]
         public int Month { get; init; }
+        
+        [NotMapped]
         public int Year { get; init; }
-        public String Value { get { return this.Formatted_ptBr(); } set { value = $"{Month:D2}/{Year % 100:D2}"; } }
-        public ExpiryDate(int month, int year)
+       
+        public ExpiryDate(DateTime value)
         {
-            if (month < 1 || month > 12)
+            if (value.Month < 1 || value.Month > 12)
             {
-                throw new ArgumentException("O mês deve ser entre 1 e 12.", nameof(month));
+                throw new ArgumentException("O mês deve ser entre 1 e 12.", nameof(value.Month));
             }
 
-            Month = month;
-            Year = year;
+            Value = value;
+            Month = value.Month;
+            Year = value.Year;
+
         }
         public string Formatted_ptBr()
         {
-            return $"{Month:D2}/{Year % 100:D2}";
+            return $"{Value.Month:D2}/{Value.Year % 100:D2}";
         }
     }
 }
