@@ -12,7 +12,7 @@ namespace Domain.Transactions.ValueObject
 
         private CreditCardBrandInfo(string name)
         {
-            Name = Name;
+            Name = name;
         }
 
         private CreditCardBrandInfo(CreditCardBrand brand, string name, bool isValid)
