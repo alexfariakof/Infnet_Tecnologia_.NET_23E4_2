@@ -26,6 +26,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migrations_SqlServer", "Migrations_SqlServer\Migrations_SqlServer.csproj", "{A0B36B13-94B8-4509-97F7-1ACEC352DE22}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migrations_MySqlServer", "Migrations_MySqlServer\Migrations_MySqlServer.csproj", "{2BBCC98F-4E9A-4F10-B5E2-70EEDFE99664}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BAEB442A-1CAA-4958-992B-DDCD9AC50379} = {BAEB442A-1CAA-4958-992B-DDCD9AC50379}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".documents", ".documents", "{0EA1D342-20E9-4789-A90A-1E362A8E252B}"
 	ProjectSection(SolutionItems) = preProject

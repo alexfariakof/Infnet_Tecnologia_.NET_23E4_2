@@ -1,8 +1,11 @@
+using Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Migrations_SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<MsSqlContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnectionString")));
+builder.Services.AddDbContext<RegisterContext>(options => 
+options.UseSqlServer(
+    builder.Configuration.GetConnectionString("SqlServerConnectionString"), 
+    b => b.MigrationsAssembly("Migrations_SqlServer")));
 
 var app = builder.Build();
 
