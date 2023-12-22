@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using Domain.Account.Agreggates;
+using Domain.Account.ValueObject;
 
 namespace Repository.Mapping.Account
 {
@@ -14,8 +15,12 @@ namespace Repository.Mapping.Account
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.CNPJ).IsRequired().HasMaxLength(18);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
-            builder.Property(x => x.Email).IsRequired().HasMaxLength(150);
-            builder.Property(x => x.Password).IsRequired().HasMaxLength(100);
+
+            builder.OwnsOne<Login>(e => e.Login, c =>
+            {
+                c.Property(x => x.Email).HasColumnName("Email").HasMaxLength(150).IsRequired();
+                c.Property(x => x.Password).HasColumnName("Password").HasMaxLength(255).IsRequired();
+            });
 
             builder.HasMany(x => x.Cards).WithOne();
             builder.HasMany(x => x.Signatures).WithOne();
