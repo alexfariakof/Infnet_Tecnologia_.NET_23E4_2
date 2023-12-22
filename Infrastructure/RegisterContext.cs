@@ -13,7 +13,7 @@ namespace Infrastructure
     public class RegisterContext: DbContext
     {
         public RegisterContext(DbContextOptions<RegisterContext> options) : base(options) { }
-        public DbSet<Customer> Custumer { get; set; }
+        public DbSet<Customer> Customer { get; set; }
         public DbSet<Merchant> Merchant { get; set; }
         public DbSet<PlaylistPersonal> PlaylistPersonal { get; set; }
         public DbSet<Signature> Signature { get; set; }
