@@ -1,23 +1,23 @@
-﻿using Domain.Core.Aggreggates;
+﻿using Domain.Account.Agreggates.Strategy;
+using Domain.Account.ValueObject;
+using Domain.Core.Aggreggates;
 using Domain.Core.ValueObject;
 using Domain.Notifications;
 using Domain.Streaming.Agreggates;
 using Domain.Transactions.Agreggates;
 using Domain.Transactions.ValueObject;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Domain.Account.Agreggates
 {
     public abstract class AbstractAccount : BaseModel
     {
         public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public Login Login { get; set; }
         public List<Card> Cards { get; set; } = new List<Card>();
         public List<Signature> Signatures { get; set; } = new List<Signature>();
         public List<Notification> Notifications { get; set; } = new List<Notification>();
-        public void AddCard(Card card) => this.Cards.Add(card);
+        public void AddCard(Card card) => this.Cards.Add(card);       
+
         public void AddFlat(Flat flat, Card card)
         {
             IsValidCreditCard(card.Number);
@@ -30,23 +30,23 @@ namespace Domain.Account.Agreggates
                 Flat = flat,
                 DtActivation = DateTime.Now,
             });
-
         }
-        protected void DisableActiveSigniture()
+
+        private IAccountCreationStrategy accountCreationStrategy;
+        public void SetAccountCreationStrategy(IAccountCreationStrategy strategy)
+        {
+            accountCreationStrategy = strategy;
+        }
+
+        public void CreateAccount(string name, Login login, Flat flat, Card card)
+        {
+            accountCreationStrategy?.CreateAccount(this, name, login, flat, card);
+        }
+
+        private void DisableActiveSigniture()
         {
             if (this.Signatures.Count > 0 && this.Signatures.Any(x => x.Active))
                 this.Signatures.FirstOrDefault(x => x.Active).Active = false;
-        }
-
-        public String CryptoPasswrod(string openPassword)
-        {
-            SHA256 criptoProvider = SHA256.Create();
-
-            byte[] btexto = Encoding.UTF8.GetBytes(openPassword);
-
-            var criptoResult = criptoProvider.ComputeHash(btexto);
-
-            return Convert.ToHexString(criptoResult);
         }
 
         private static void IsValidCreditCard(string creditCardNumber)
@@ -59,6 +59,5 @@ namespace Domain.Account.Agreggates
                 throw new ArgumentException($"Cartão { cardInfo.Name }.");                
 
         }
-
     }
 }

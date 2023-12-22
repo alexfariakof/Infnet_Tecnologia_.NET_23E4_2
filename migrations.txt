@@ -1,3 +1,17 @@
+# Inicializa Migratiuons 
 Add-Migration InitialCreate
+
+# Atualiza o SGBD com as configurações do Igrations 
 Update-Database
-Enable-Migrations -EnableAutomaticMigrations -- comando obsoleto/ funciona apenas em Framework < .Net 6.0 && != .Net core
+
+
+# Adiciona um nomo pipeline ao Migrations 
+Add-Migration <Name pipeline changes>
+
+
+# At root path Migrations project "U can see this at folder Migrations in project too"
+dotnet ef migrations list
+
+# Return to a state creatred by Mingrations
+dotnet ef database update 20231221234827_InitialCreate
+dotnet ef database update 20231222054303_Changes-Props_Email_Password_To_Value_Objects

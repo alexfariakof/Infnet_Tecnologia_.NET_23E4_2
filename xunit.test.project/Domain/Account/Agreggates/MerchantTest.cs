@@ -14,7 +14,7 @@ namespace Domain.Account
             // Arrange
             var merchantMock = new Mock<Merchant>();
             merchantMock.VerifyAll();
-            var customer = merchantMock.Object;
+            var merchant = merchantMock.Object;
             var flat = new Flat
             {
                 Id = Guid.NewGuid(),
@@ -27,18 +27,17 @@ namespace Domain.Account
             var card = MockCard.GetFaker();
             card.Active = true;
 
-            var openPassword = "12345!";
+            var login = MockLogin.GetFaker();
 
             // Act
-            customer.CreateAccount("John Doe", "john@example.com", openPassword, "123456789", flat, card);
+            merchant.CreateAccount("John Doe", login, "123456789", flat, card);
 
             // Assert
             Mock.Verify(merchantMock);
-            Assert.Equal("John Doe", customer.Name);
-            Assert.Equal("john@example.com", customer.Email);
-            Assert.Equal(customer.CryptoPasswrod(openPassword), customer.Password) ;
-            Assert.Equal("123456789", customer.CNPJ);
-            Assert.Single(customer.Cards, card);
+            Assert.Equal("John Doe", merchant.Name);
+            Assert.Equal(login, merchant.Login) ;
+            Assert.Equal("123456789", merchant.CNPJ);
+            Assert.Single(merchant.Cards, card);
         }
     }
 }

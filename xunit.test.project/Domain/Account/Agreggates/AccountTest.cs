@@ -32,8 +32,7 @@ namespace Domain.Account
             var account = accountMock.Object;
             account.Id = Guid.NewGuid();
             account.Name = " Account Test ";
-            account.Email = "teste@teste.com";
-            account.Password = "12345!";
+            account.Login = MockLogin.GetFaker();
 
             var flat = new Flat
             {
@@ -102,23 +101,6 @@ namespace Domain.Account
             Assert.False(activeSignature.Active);
             Assert.False(inactiveSignature.Active);
             Assert.Empty(account.Notifications);
-        }
-
-        [Fact]
-        public void Should_Return_Hash_CryptoPassword()
-        {
-            // Arrange
-            var accountMock = new Mock<AbstractAccount>();
-            accountMock.VerifyAll();
-            var openPassword = "12345!";
-
-            // Act 
-            var cryptoPassword = accountMock.Object.CryptoPasswrod(openPassword);
-
-            // Assert
-            Mock.Verify(accountMock);
-            Assert.NotNull(cryptoPassword);
-            Assert.IsType<String>(cryptoPassword);
         }
     }
 }

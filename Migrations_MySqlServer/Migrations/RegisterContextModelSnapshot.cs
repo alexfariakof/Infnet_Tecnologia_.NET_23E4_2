@@ -33,20 +33,10 @@ namespace Migrations_MySqlServer.Migrations
                         .HasMaxLength(14)
                         .HasColumnType("varchar(14)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -64,17 +54,7 @@ namespace Migrations_MySqlServer.Migrations
                         .HasMaxLength(18)
                         .HasColumnType("varchar(18)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
-
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
@@ -408,6 +388,68 @@ namespace Migrations_MySqlServer.Migrations
                     b.HasIndex("PlaylistPersonalId");
 
                     b.ToTable("MusicPlayListPersonal");
+                });
+
+            modelBuilder.Entity("Domain.Account.Agreggates.Customer", b =>
+                {
+                    b.OwnsOne("Domain.Account.ValueObject.Login", "Login", b1 =>
+                        {
+                            b1.Property<Guid>("CustomerId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<string>("Email")
+                                .IsRequired()
+                                .HasMaxLength(150)
+                                .HasColumnType("varchar(150)")
+                                .HasColumnName("Email");
+
+                            b1.Property<string>("Password")
+                                .IsRequired()
+                                .HasMaxLength(255)
+                                .HasColumnType("varchar(255)")
+                                .HasColumnName("Password");
+
+                            b1.HasKey("CustomerId");
+
+                            b1.ToTable("Customer");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CustomerId");
+                        });
+
+                    b.Navigation("Login")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Account.Agreggates.Merchant", b =>
+                {
+                    b.OwnsOne("Domain.Account.ValueObject.Login", "Login", b1 =>
+                        {
+                            b1.Property<Guid>("MerchantId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<string>("Email")
+                                .IsRequired()
+                                .HasMaxLength(150)
+                                .HasColumnType("varchar(150)")
+                                .HasColumnName("Email");
+
+                            b1.Property<string>("Password")
+                                .IsRequired()
+                                .HasMaxLength(255)
+                                .HasColumnType("varchar(255)")
+                                .HasColumnName("Password");
+
+                            b1.HasKey("MerchantId");
+
+                            b1.ToTable("Merchant");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MerchantId");
+                        });
+
+                    b.Navigation("Login")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Account.Agreggates.PlaylistPersonal", b =>

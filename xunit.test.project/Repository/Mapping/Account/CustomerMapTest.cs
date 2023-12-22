@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore;
 using Domain.Account.Agreggates;
+using Domain.Account.ValueObject;
 using Repository.Mapping.Account;
 using __mock__;
 
@@ -29,14 +30,16 @@ namespace Repository.Mapping
                 // Act
                 var idProperty = entityType.FindProperty("Id");
                 var nameProperty = entityType.FindProperty("Name");
-                var emailProperty = entityType.FindProperty("Email");
-                var passwordProperty = entityType.FindProperty("Password");
+                var loginNavigation = entityType.FindNavigation(nameof(Customer.Login));
+                var emailProperty = loginNavigation.TargetEntityType.FindProperty(nameof(Login.Email));
+                var passwordProperty = loginNavigation.TargetEntityType.FindProperty(nameof(Login.Password));
                 var birthProperty = entityType.FindProperty("Birth");
                 var cpfProperty = entityType.FindProperty("CPF");
 
                 // Assert
                 Assert.NotNull(idProperty);
                 Assert.NotNull(nameProperty);
+                Assert.NotNull(loginNavigation);
                 Assert.NotNull(emailProperty);
                 Assert.NotNull(passwordProperty);
                 Assert.NotNull(birthProperty);
