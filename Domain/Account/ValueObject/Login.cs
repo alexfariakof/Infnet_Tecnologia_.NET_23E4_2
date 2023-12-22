@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Text;
+﻿using Domain.Core.Aggreggates;
 using System.Text.RegularExpressions;
 
 namespace Domain.Account.ValueObject
@@ -17,18 +16,7 @@ namespace Domain.Account.ValueObject
         public string Password
         {
             get => _password;
-            set => _password = CryptoPassword(value);
-        }
-
-        private static string CryptoPassword(string openPassword)
-        {
-            SHA256 criptoProvider = SHA256.Create();
-
-            byte[] btexto = Encoding.UTF8.GetBytes(openPassword);
-
-            var criptoResult = criptoProvider.ComputeHash(btexto);
-
-            return Convert.ToHexString(criptoResult);
+            set => _password =  Crypto.GetInstance.Encrypt(value);
         }
         private string IsValidEmail(string email)
         {
