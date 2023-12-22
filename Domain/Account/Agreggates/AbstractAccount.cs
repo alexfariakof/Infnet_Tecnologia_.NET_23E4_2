@@ -1,5 +1,4 @@
-﻿using Domain.Account.Agreggates.Strategy;
-using Domain.Account.ValueObject;
+﻿using Domain.Account.ValueObject;
 using Domain.Core.Aggreggates;
 using Domain.Core.ValueObject;
 using Domain.Notifications;
@@ -31,18 +30,6 @@ namespace Domain.Account.Agreggates
                 DtActivation = DateTime.Now,
             });
         }
-
-        private IAccountCreationStrategy accountCreationStrategy;
-        public void SetAccountCreationStrategy(IAccountCreationStrategy strategy)
-        {
-            accountCreationStrategy = strategy;
-        }
-
-        public void CreateAccount(string name, Login login, Flat flat, Card card)
-        {
-            accountCreationStrategy?.CreateAccount(this, name, login, flat, card);
-        }
-
         private void DisableActiveSigniture()
         {
             if (this.Signatures.Count > 0 && this.Signatures.Any(x => x.Active))

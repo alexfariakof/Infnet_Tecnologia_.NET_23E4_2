@@ -12,9 +12,8 @@ namespace Domain.Account
         public void Should_Create_Account_With_Flat_Card_And_Playlist()
         {
             // Arrange
-            var merchantMock = new Mock<Merchant>();
-            merchantMock.VerifyAll();
-            var merchant = merchantMock.Object;
+            var merchantMock = MockMerchant.GetFaker();
+            var merchant = merchantMock;
             var flat = new Flat
             {
                 Id = Guid.NewGuid(),
@@ -33,7 +32,6 @@ namespace Domain.Account
             merchant.CreateAccount("John Doe", login, "123456789", flat, card);
 
             // Assert
-            Mock.Verify(merchantMock);
             Assert.Equal("John Doe", merchant.Name);
             Assert.Equal(login, merchant.Login) ;
             Assert.Equal("123456789", merchant.CNPJ);
