@@ -1,4 +1,5 @@
-﻿using Domain.Streaming.Agreggates;
+﻿using Domain.Account.ValueObject;
+using Domain.Streaming.Agreggates;
 using Domain.Transactions.Agreggates;
 
 namespace Domain.Account.Agreggates
@@ -9,20 +10,17 @@ namespace Domain.Account.Agreggates
         public string CPF { get; set; }
         public DateTime Birth { get; set; }
         public List<PlaylistPersonal> Playlists { get; set; } = new List<PlaylistPersonal>();
-
-        public void CreateAccount(string nome, string email, string password, string cpf,  DateTime birth, Flat flat, Card card)
+        public void CreateAccount(string name, Login login, DateTime birth, string cpf, Flat flat, Card card)
         {
-            this.Name = nome;
-            this.Email = email;
-            this.Birth = birth;
-            this.CPF = cpf;
-            this.Password = this.CryptoPasswrod(password);
-            this.AddFlat(flat, card);
-            this.AddCard(card);
-            this.CreatePlaylist(name: PLAYLIST_NAME, @public: false);
+            Name = name;
+            Login = login;
+            Birth = birth;
+            CPF = cpf;            
+            AddFlat(flat, card);
+            AddCard(card);
+            CreatePlaylist(name: PLAYLIST_NAME, @public: false);
         }
-
-        public void CreatePlaylist(string name, bool @public = true)
+        private void CreatePlaylist(string name, bool @public = true)
         {
             this.Playlists.Add(new PlaylistPersonal()
             {
@@ -31,6 +29,6 @@ namespace Domain.Account.Agreggates
                 DtCreated = DateTime.Now,
                 Customer = this
             });
-        }
+        }        
     }
 }

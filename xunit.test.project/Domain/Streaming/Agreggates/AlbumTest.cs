@@ -1,4 +1,5 @@
 ﻿using Domain.Streaming.Agreggates;
+using Domain.Account.Agreggates;
 using __mock__;
 
 namespace Domain.Streaming
@@ -40,6 +41,23 @@ namespace Domain.Streaming
             // Assert
             Assert.Single(album.Music, fakeMusic);
             Assert.True(fakeMusicList.Count < album.Music.Count);
+        }
+
+        [Fact]
+        public void Should_Add_Music_Personal_Correctly_Album()
+        {
+            // Arrange
+            var album = new Album();
+            var fakeMusic = MockMusic<PlaylistPersonal>.GetFaker();
+            var fakeMusicList = MockMusic<PlaylistPersonal>.GetListFaker(2);
+
+            // Act
+            album.AddMusic(fakeMusic);
+            album.AddMusic(fakeMusicList);
+
+            // Assert
+            Assert.Single(album.MusicPersonal, fakeMusic);
+            Assert.True(fakeMusicList.Count < album.MusicPersonal.Count);
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using __mock__;
-using Domain.Account.Agreggates;
-using Domain.Streaming.Agreggates;
-using Domain.Transactions.Agreggates;
-using Moq;
+﻿using Domain.Streaming.Agreggates;
+using __mock__;
 
 namespace Domain.Account
 {
@@ -12,9 +9,8 @@ namespace Domain.Account
         public void Should_Create_Account_With_Flat_Card_And_Playlist()
         {
             // Arrange
-            var customerMock = new Mock<Customer>();
-            customerMock.VerifyAll();
-            var customer = customerMock.Object;
+            var customerMock = MockCustomer.GetFaker();
+            var customer = customerMock;
             var flat = new Flat
             {
                 Id = Guid.NewGuid(),
@@ -26,16 +22,14 @@ namespace Domain.Account
             var card = MockCard.GetFaker();
             card.Active = true;
 
-            var openPassword = "12345!";
+            var login = MockLogin.GetFaker();
 
             // Act
-            customer.CreateAccount("John Doe", "john@example.com", openPassword, "123456789", DateTime.Now, flat, card);
+            customer.CreateAccount("John Doe", login, DateTime.Now, "123456789", flat, card);
 
             // Assert
-            Mock.Verify(customerMock);
             Assert.Equal("John Doe", customer.Name);
-            Assert.Equal("john@example.com", customer.Email);
-            Assert.Equal(customer.CryptoPasswrod(openPassword), customer.Password) ;
+            Assert.Equal(login, customer.Login) ;
             Assert.Equal("123456789", customer.CPF);
             Assert.Equal(DateTime.Now.Date, customer.Birth.Date);
             Assert.Single(customer.Cards, card);

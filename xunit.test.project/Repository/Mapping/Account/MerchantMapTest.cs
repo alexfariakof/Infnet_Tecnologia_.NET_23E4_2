@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore;
 using Domain.Account.Agreggates;
+using Domain.Account.ValueObject;
 using Repository.Mapping.Account;
 using __mock__;
 
@@ -29,13 +30,15 @@ namespace Repository.Mapping
                 // Act
                 var idProperty = entityType.FindProperty("Id");
                 var nameProperty = entityType.FindProperty("Name");
-                var emailProperty = entityType.FindProperty("Email");
-                var passwordProperty = entityType.FindProperty("Password");
+                var loginNavigation = entityType.FindNavigation(nameof(Merchant.Login));
+                var emailProperty = loginNavigation.TargetEntityType.FindProperty(nameof(Login.Email));
+                var passwordProperty = loginNavigation.TargetEntityType.FindProperty(nameof(Login.Password));
                 var cnpjProperty = entityType.FindProperty("CNPJ");
 
                 // Assert
                 Assert.NotNull(idProperty);
                 Assert.NotNull(nameProperty);
+                Assert.NotNull(loginNavigation);
                 Assert.NotNull(emailProperty);
                 Assert.NotNull(passwordProperty);
                 Assert.NotNull(cnpjProperty);
@@ -46,7 +49,7 @@ namespace Repository.Mapping
                 Assert.False(emailProperty.IsNullable);
                 Assert.Equal(150, emailProperty.GetMaxLength());
                 Assert.False(passwordProperty.IsNullable);
-                Assert.Equal(100, passwordProperty.GetMaxLength());
+                Assert.Equal(255, passwordProperty.GetMaxLength());
                 Assert.False(cnpjProperty.IsNullable);
                 Assert.Equal(18, cnpjProperty.GetMaxLength());
             }
