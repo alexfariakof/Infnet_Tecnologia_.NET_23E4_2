@@ -9,6 +9,7 @@ namespace Domain.Core.Aggreggates
     {
         private readonly byte[] Key; // Chave fixa de 256 bits
         private static ICrypto? Instance;
+        public static ICrypto GetInstance { get => Instance == null ? new Crypto() : Instance; }
         private Crypto()
         {
             var key = getHashKey();
@@ -31,15 +32,7 @@ namespace Domain.Core.Aggreggates
             {
                 throw new ArgumentException("Arquivo com chave de criptografia não encontrado");
             }
-        }
-        public static ICrypto GetInstance
-        {
-            get
-            {
-                return Instance == null ? new Crypto() : Instance;
-            }
-
-        }
+        }        
         public string Encrypt(string password)
         {
             byte[] iv = GenerateIV();
