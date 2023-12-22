@@ -1,9 +1,9 @@
-﻿using Domain.Account.ValueObject;
-using Domain.Core.Aggreggates;
+﻿using Domain.Core.Aggreggates;
 using Domain.Core.ValueObject;
 using Domain.Notifications;
 using Domain.Streaming.Agreggates;
 using Domain.Transactions.Agreggates;
+using Domain.Transactions.ValueObject;
 using System.Security.Cryptography;
 using System.Text;
 
