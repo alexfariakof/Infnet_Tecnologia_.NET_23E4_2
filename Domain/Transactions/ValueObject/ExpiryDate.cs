@@ -16,15 +16,9 @@ namespace Domain.Transactions.ValueObject
        
         public ExpiryDate(DateTime value)
         {
-            if (value.Month < 1 || value.Month > 12)
-            {
-                throw new ArgumentException("O mês deve ser entre 1 e 12.", nameof(value.Month));
-            }
-
             Value = value;
             Month = value.Month;
             Year = value.Year;
-
         }
         public string Formatted_ptBr()
         {
