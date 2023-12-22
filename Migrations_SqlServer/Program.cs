@@ -8,6 +8,5 @@ options.UseSqlServer(
     b => b.MigrationsAssembly("Migrations_SqlServer")));
 
 var app = builder.Build();
-
 app.MapGet("/", () => "Migrations SqlServer!");
 app.Run();
