@@ -1,7 +1,7 @@
 ﻿using Domain.Core.ValueObject;
 using Domain.Transactions.Agreggates;
 using Domain.Transactions.ValueObject;
-using static Domain.Account.ValueObject.CreditCardBrandInfo;
+using static Domain.Transactions.ValueObject.CreditCardBrandInfo;
 using Bogus;
 
 namespace __mock__
@@ -15,7 +15,7 @@ namespace __mock__
                 .RuleFor(a => a.Active, f => f.Random.Bool())
                 .RuleFor(a => a.Limit, f => new Monetary(f.Random.Decimal(1000, 10000)))
                 .RuleFor(a => a.Number, f => GenerateValidCreditCardNumber())
-                .RuleFor(a => a.Validate, f => new ExpiryDate(f.Random.Int(1, 12), f.Random.Int(DateTime.Now.Year, DateTime.Now.Year + 5)))
+                .RuleFor(a => a.Validate, f => new ExpiryDate(new DateTime(DateTime.Now.Year + 5, f.Random.Int(1, 12), 1)))                
                 .RuleFor(a => a.CVV, f => f.Random.Int(100, 999).ToString())
                 .Generate();
 

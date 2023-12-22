@@ -1,12 +1,19 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.RegularExpressions;
 
-namespace Domain.Account.ValueObject
+namespace Domain.Transactions.ValueObject
 {
     public record CreditCardBrandInfo
     {
-        public CreditCardBrand Brand { get; }
+        [NotMapped]
+        public CreditCardBrand Brand { get; }        
         public string Name { get; }
         public bool IsValid { get; }
+
+        private CreditCardBrandInfo(string name)
+        {
+            Name = name;
+        }
 
         private CreditCardBrandInfo(CreditCardBrand brand, string name, bool isValid)
         {

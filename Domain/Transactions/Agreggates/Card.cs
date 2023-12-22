@@ -12,7 +12,8 @@ namespace Domain.Transactions.Agreggates
         private const int REPEAT_TRANSACTON_MERCHANT = 1;
         public Boolean Active { get; set; }
         public Monetary Limit { get; set; }
-        public String Number { get; set; }
+        public String Number { get; set; }        
+        public CreditCardBrandInfo CardBrand { get; set; }
         public ExpiryDate Validate { get; set; }
         
         private string _cvv;
@@ -92,5 +93,6 @@ namespace Domain.Transactions.Agreggates
                 throw new Exception("Cartão não está ativo.");
             }
         }
+
     }
 }
