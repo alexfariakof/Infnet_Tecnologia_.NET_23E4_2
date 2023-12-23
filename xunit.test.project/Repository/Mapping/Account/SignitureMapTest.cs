@@ -11,6 +11,8 @@ namespace Repository.Mapping
         [Fact]
         public void EntityConfiguration_IsValid()
         {
+            const int PROPERTY_COUNT = 5;
+
             // Arrange
             var options = new DbContextOptionsBuilder<MockRegisterContext>()
                 .UseInMemoryDatabase(databaseName: "InMemoryDatabase_SignitureMapTest")
@@ -25,12 +27,12 @@ namespace Repository.Mapping
 
                 var model = builder.Model;
                 var entityType = model.FindEntityType(typeof(Signature));
-
+                var propsCount = entityType.GetNavigations().Count() + entityType.GetProperties().Count();
                 // Act
                 var idProperty = entityType.FindProperty("Id");
                 var activeProperty = entityType.FindProperty("Active");
                 var dtActivationProperty = entityType.FindProperty("DtActivation");
-
+                var flatNavigation = entityType.FindNavigation("Flat");
 
                 // Assert
                 Assert.NotNull(idProperty);
@@ -40,6 +42,10 @@ namespace Repository.Mapping
                 Assert.True(idProperty.IsPrimaryKey());
                 Assert.False(activeProperty.IsNullable);
                 Assert.False(dtActivationProperty.IsNullable);
+                Assert.NotNull(flatNavigation);
+                Assert.False(flatNavigation.IsCollection);
+                Assert.NotNull(flatNavigation.ForeignKey);
+                Assert.Equal(PROPERTY_COUNT, propsCount);
             }
         }
     }

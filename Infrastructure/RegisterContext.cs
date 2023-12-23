@@ -2,6 +2,7 @@
 using Domain.Notifications;
 using Domain.Streaming.Agreggates;
 using Domain.Transactions.Agreggates;
+using Domain.Transactions.ValueObject;
 using Microsoft.EntityFrameworkCore;
 using Repository.Mapping.Account;
 using Repository.Mapping.Notifications;
@@ -24,6 +25,7 @@ namespace Infrastructure
         //public DbSet<Music<PlaylistPersonal>> MusicPersonal { get; set; }
         public DbSet<Playlist> Playlist{ get; set; }
         public DbSet<Card> Card{ get; set; }
+        public DbSet<CreditCardBrand> CardBrand { get; set; }
         public DbSet<Transaction> Transaction { get; set; }
         public DbSet<Notification> Notification{ get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,7 +41,8 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new MusicMap());
             modelBuilder.ApplyConfiguration(new MusicPersonalMap());
             modelBuilder.ApplyConfiguration(new PlaylistMap());
-            modelBuilder.ApplyConfiguration(new CardMap());
+            modelBuilder.ApplyConfiguration(new CreditCardBrandMap());
+            modelBuilder.ApplyConfiguration(new CardMap());            
             modelBuilder.ApplyConfiguration(new TransactionMap());
             modelBuilder.ApplyConfiguration(new NotificationMap());
         }

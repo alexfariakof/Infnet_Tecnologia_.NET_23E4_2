@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Domain.Account.ValueObject
 {
-    public record Login
+    public class Login
     {
         private string _email;
         public string Email 

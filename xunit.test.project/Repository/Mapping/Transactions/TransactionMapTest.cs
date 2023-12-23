@@ -11,6 +11,8 @@ namespace Repository.Mapping
         [Fact]
         public void EntityConfiguration_IsValid()
         {
+            const int PROPERTY_COUNT = 5;           
+
             // Arrange
             var options = new DbContextOptionsBuilder<MockRegisterContext>()
                 .UseInMemoryDatabase(databaseName: "InMemoryDatabase_TransactionMapTest")
@@ -25,11 +27,14 @@ namespace Repository.Mapping
 
                 var model = builder.Model;
                 var entityType = model.FindEntityType(typeof(Transaction));
+                var propsCount = entityType.GetNavigations().Count() + entityType.GetProperties().Count();
 
                 // Act
                 var idProperty = entityType.FindProperty("Id");
                 var dtTransactionProperty = entityType.FindProperty("DtTransaction");
                 var descriptionProperty = entityType.FindProperty("Description");
+                var merchantNavigation = entityType.FindNavigation("Merchant");
+                var monetaryValueProperty = entityType.FindNavigation("Value").ForeignKey.Properties.First();
 
                 // Assert
                 Assert.NotNull(idProperty);
@@ -40,6 +45,13 @@ namespace Repository.Mapping
                 Assert.False(dtTransactionProperty.IsNullable);                
                 Assert.False(descriptionProperty.IsNullable);
                 Assert.Equal(50, descriptionProperty.GetMaxLength());
+                Assert.NotNull(merchantNavigation);
+                Assert.False(merchantNavigation.IsCollection);
+                Assert.NotNull(merchantNavigation.ForeignKey);
+                Assert.True(merchantNavigation.ForeignKey.IsRequired);
+                Assert.Equal("Id", merchantNavigation.ForeignKey.Properties.First().Name);
+                Assert.False(monetaryValueProperty.IsNullable);
+                Assert.Equal(PROPERTY_COUNT, propsCount);
             }
         }
     }

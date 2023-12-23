@@ -24,6 +24,19 @@ namespace Migrations_SqlServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CardBrand",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CardBrand", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Customer",
                 columns: table => new
                 {
@@ -61,7 +74,7 @@ namespace Migrations_SqlServer.Migrations
                     CNPJ = table.Column<string>(type: "nvarchar(18)", maxLength: 18, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,7 +148,7 @@ namespace Migrations_SqlServer.Migrations
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     Limit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Number = table.Column<string>(type: "nvarchar(19)", maxLength: 19, nullable: false),
-                    Brand = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    CardBrandId = table.Column<int>(type: "int", nullable: false),
                     Validate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CVV = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -144,6 +157,12 @@ namespace Migrations_SqlServer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Card", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Card_CardBrand_CardBrandId",
+                        column: x => x.CardBrandId,
+                        principalTable: "CardBrand",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Card_Customer_CustomerId",
                         column: x => x.CustomerId,
@@ -269,8 +288,6 @@ namespace Migrations_SqlServer.Migrations
                     DtTransaction = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Monetary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    MerchantName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MerchantCNPJ = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CardId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -281,6 +298,12 @@ namespace Migrations_SqlServer.Migrations
                         column: x => x.CardId,
                         principalTable: "Card",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Transaction_Merchant_Id",
+                        column: x => x.Id,
+                        principalTable: "Merchant",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -333,10 +356,29 @@ namespace Migrations_SqlServer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "CardBrand",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Visa" },
+                    { 2, "Mastercard" },
+                    { 3, "Amex" },
+                    { 4, "Discover" },
+                    { 5, "DinersClub" },
+                    { 6, "JCB" },
+                    { 99, "Invalid" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Album_BandId",
                 table: "Album",
                 column: "BandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Card_CardBrandId",
+                table: "Card",
+                column: "CardBrandId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Card_CustomerId",
@@ -451,6 +493,9 @@ namespace Migrations_SqlServer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Album");
+
+            migrationBuilder.DropTable(
+                name: "CardBrand");
 
             migrationBuilder.DropTable(
                 name: "Customer");
