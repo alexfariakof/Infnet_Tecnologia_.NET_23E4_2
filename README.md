@@ -15,3 +15,9 @@ O objetivo é apresentar conceitos avançados do desenvolvimento de aplicações
 ![Class_Diagram_Streaming_Context](https://github.com/alexfariakof/Infnet_Tecnologia_.NET_23E4_2/assets/42475620/3903a8f1-d3f7-4db7-ad58-27397e0f32ff)
 
 ![Class_Diagram_Transactions_Context](https://github.com/alexfariakof/Infnet_Tecnologia_.NET_23E4_2/assets/42475620/527a9668-5b4c-4dc3-ba80-ad8ca2fec94c)
+
+[Test Results in Sonar Cloud](https://sonarcloud.io/summary/new_code?id=alexfariakof_Infnet_Tecnologia_.NET_23E4_2) 
+![image](https://github.com/alexfariakof/Infnet_Tecnologia_.NET_23E4_2/assets/42475620/4bed7344-e807-4806-bef2-248675ce3b78)
+
+# Test Coverage Report Results
+![image](https://github.com/alexfariakof/Infnet_Tecnologia_.NET_23E4_2/assets/42475620/e8efe448-3690-4dad-9357-ddfbf2775a74)
