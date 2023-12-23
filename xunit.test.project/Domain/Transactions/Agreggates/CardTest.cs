@@ -1,5 +1,5 @@
-﻿using Domain.Transactions.Agreggates;
-using Domain.Transactions.ValueObject;
+﻿using Domain.Account.Agreggates;
+using Domain.Transactions.Agreggates;
 
 namespace Domain.Transactions
 {

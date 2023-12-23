@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Streaming.Agreggates;
 using Repository.Mapping.Streaming;
 using __mock__;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Repository.Mapping
 {
@@ -11,6 +12,7 @@ namespace Repository.Mapping
         [Fact]
         public void EntityConfiguration_IsValid()
         {
+            const int PROPERTY_COUNT = 2;
             // Arrange
             var options = new DbContextOptionsBuilder<MockRegisterContext>()
                 .UseInMemoryDatabase(databaseName: "InMemoryDatabase_PlaylistMapTest")
@@ -25,6 +27,7 @@ namespace Repository.Mapping
 
                 var model = builder.Model;
                 var entityType = model.FindEntityType(typeof(Playlist));
+                var propsCount = entityType.GetNavigations().Count() + entityType.GetProperties().Count();
 
                 // Act
                 var idProperty = entityType.FindProperty("Id");
@@ -37,6 +40,7 @@ namespace Repository.Mapping
                 Assert.True(idProperty.IsPrimaryKey());
                 Assert.False(nameProperty.IsNullable);
                 Assert.Equal(50, nameProperty.GetMaxLength());
+                Assert.Equal(PROPERTY_COUNT, propsCount);
             }
         }
     }

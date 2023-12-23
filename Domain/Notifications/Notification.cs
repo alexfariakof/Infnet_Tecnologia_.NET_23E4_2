@@ -11,8 +11,6 @@ namespace Domain.Notifications
         public Customer Destination { get; set; }
         public Customer? Sender { get; set; }
         public NotificationType NotificationType { get; set; }
-
-
         public static Notification Create(string titlle, string message, NotificationType notificationType, Customer destination, Customer sender = null)
         {
             if (notificationType == NotificationType.User && sender == null)
@@ -35,7 +33,6 @@ namespace Domain.Notifications
             };
         }
     }
-
     public enum NotificationType
     {
         User = 1,

@@ -6,7 +6,7 @@
         public static implicit operator decimal(Monetary d) => d.Value;
         public static implicit operator Monetary(decimal value) => new Monetary(value);
 
-        public Monetary(Decimal value)
+        public Monetary(decimal value)
         {
             if (value < 0)
                 throw new ArgumentException("Valor monetário não pode ser negativo");

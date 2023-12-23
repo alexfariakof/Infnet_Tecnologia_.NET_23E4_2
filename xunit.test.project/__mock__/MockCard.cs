@@ -1,7 +1,7 @@
 ﻿using Domain.Core.ValueObject;
 using Domain.Transactions.Agreggates;
 using Domain.Transactions.ValueObject;
-using static Domain.Transactions.ValueObject.CreditCardBrandInfo;
+using static Domain.Transactions.ValueObject.CreditCardBrand;
 using Bogus;
 
 namespace __mock__
@@ -42,7 +42,7 @@ namespace __mock__
             {
                 cardNumber = GenerateRandomCreditCardNumber();
                 brandInfo = IdentifyCard(cardNumber);
-                if (brandInfo.Brand != CreditCardBrand.Invalid && brandInfo.IsValid != false)
+                if (brandInfo.CardBrand != CardBrand.Invalid && brandInfo.IsValid != false)
                     break;
             }
 
@@ -62,29 +62,29 @@ namespace __mock__
             return number;
         }
 
-        private static string GenerateRandomCreditCardNumber(CreditCardBrand brand)
+        private static string GenerateRandomCreditCardNumber(CardBrand brand)
         {
             var random = new Random();
             var number = string.Empty;
 
             switch (brand)
             {
-                case CreditCardBrand.Visa:
+                case CardBrand.Visa:
                     number += "4";
                     break;
-                case CreditCardBrand.Mastercard:
+                case CardBrand.Mastercard:
                     number += "5";
                     break;
-                case CreditCardBrand.Amex:
+                case CardBrand.Amex:
                     number += "3";
                     break;
-                case CreditCardBrand.Discover:
+                case CardBrand.Discover:
                     number += "6";
                     break;
-                case CreditCardBrand.DinersClub:
+                case CardBrand.DinersClub:
                     number += "3";
                     break;
-                case CreditCardBrand.JCB:
+                case CardBrand.JCB:
                     number += "35";
                     break;
                 default:

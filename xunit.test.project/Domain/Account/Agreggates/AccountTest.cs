@@ -12,7 +12,7 @@ namespace Domain.Account
         public void Should_AddCard_To_Card_List()
         {
             // Arrange
-            var account = new Mock<AbstractAccount>().Object;
+            var account = new Mock<AbstractAccount<Customer>>().Object;
             var card = MockCard.GetFaker();
 
             // Act
@@ -26,7 +26,7 @@ namespace Domain.Account
         public void Should_Create_Transaction_And_AddSignature_When_Add_Flat()
         {
             // Arrange
-            var accountMock = new Mock<AbstractAccount>();
+            var accountMock = new Mock<AbstractAccount<Customer>>();
             accountMock.VerifyAll();
 
             var account = accountMock.Object;
@@ -67,7 +67,7 @@ namespace Domain.Account
         public void Should_Disable_Active_Signature_DisableActiveSigniture()
         {
             // Arrange
-            var accountMock = new Mock<AbstractAccount>();
+            var accountMock = new Mock<AbstractAccount<Customer>>();
             var account = accountMock.Object;
             var activeSignature = new Signature { Active = true };
             var inactiveSignature = new Signature { Active = false };

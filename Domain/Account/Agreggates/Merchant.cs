@@ -1,19 +1,19 @@
 ﻿using Domain.Account.ValueObject;
-using Domain.Core.Interfaces;
 using Domain.Streaming.Agreggates;
 using Domain.Transactions.Agreggates;
 
 namespace Domain.Account.Agreggates
 {
-    public class Merchant : AbstractAccount, IMerchant
+    public class Merchant : AbstractAccount<Merchant>
     {
         public string CNPJ { get; set; }
+        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
 
-        public void CreateAccount(string name, Login login, string cnpj, Flat flat, Card card)
+        public override void CreateAccount(Merchant merchant, Login login,  Flat flat, Card card)
         {
-            Name = name;
+            Name = merchant.Name;
+            CNPJ = merchant.CNPJ;
             Login = login;
-            CNPJ = cnpj;            
             AddFlat(flat, card);
             AddCard(card);
         }
