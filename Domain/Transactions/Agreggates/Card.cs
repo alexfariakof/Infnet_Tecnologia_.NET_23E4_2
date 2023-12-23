@@ -1,8 +1,6 @@
 ﻿using Domain.Core.Aggreggates;
 using Domain.Core.ValueObject;
 using Domain.Transactions.ValueObject;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Domain.Transactions.Agreggates
 {
@@ -20,7 +18,7 @@ namespace Domain.Transactions.Agreggates
         public string CVV
         {
             get { return _cvv; }
-            set { _cvv = CryptoCVV(value); }
+            set { _cvv = Crypto.GetInstance.Encrypt(value); }
         }
         public List<Transaction> Transactions { get; set; } = new List<Transaction>();
 
@@ -75,16 +73,6 @@ namespace Domain.Transactions.Agreggates
                 throw new Exception("Cartão não possui limite para esta transação.");
             }
 
-        }
-        private static String CryptoCVV(string openCVV)
-        {
-            SHA256 criptoProvider = SHA256.Create();
-
-            byte[] btexto = Encoding.UTF8.GetBytes(openCVV);
-
-            var criptoResult = criptoProvider.ComputeHash(btexto);
-
-            return Convert.ToHexString(criptoResult);
         }
         private void IsCardActive()
         {
