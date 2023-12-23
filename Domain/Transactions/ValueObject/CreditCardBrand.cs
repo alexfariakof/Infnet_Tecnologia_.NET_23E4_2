@@ -1,59 +1,73 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Domain.Transactions.Agreggates;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace Domain.Transactions.ValueObject
 {
-    public record CreditCardBrandInfo
+    public enum CardBrand
+    {
+        Invalid = 99,
+        Visa = 1,
+        Mastercard = 2,
+        Amex = 3,
+        Discover = 4,
+        DinersClub = 5,
+        JCB = 6
+    }
+    public record CreditCardBrand
     {
         [NotMapped]
-        public CreditCardBrand Brand { get; }        
-        public string Name { get; }
+        public CardBrand CardBrand { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }        
         public bool IsValid { get; }
-
-        private CreditCardBrandInfo(string name)
+        public List<Card> Cards { get; set; } = new List<Card>();
+        
+        public CreditCardBrand(int id, string name)
         {
+            Id = id;
             Name = name;
+            CardBrand = (CardBrand)id;
         }
 
-        private CreditCardBrandInfo(CreditCardBrand brand, string name, bool isValid)
+        private CreditCardBrand(CardBrand brand, string name, bool isValid)
         {
-            Brand = brand;
-            Name = name;
+            CardBrand = brand;            
             IsValid = isValid;
         }
 
-        public static CreditCardBrandInfo IdentifyCard(string creditCardNumber)
+        public static CreditCardBrand IdentifyCard(string creditCardNumber)
         {
             string cleanedNumber = RemoveNonNumericCharacters(creditCardNumber);
             bool isValid = IsCreditCardValid(cleanedNumber);
 
             if (Regex.IsMatch(cleanedNumber, @"^4[0-9]{12}(?:[0-9]{3})?$"))
             {
-                return new CreditCardBrandInfo(CreditCardBrand.Visa, "Visa", isValid);
+                return new CreditCardBrand(CardBrand.Visa, "Visa", isValid);
             }
             else if (Regex.IsMatch(cleanedNumber, @"^5[1-5][0-9]{14}$|^2(?:2(?:2[1-9]|[3-9][0-9])|[3-6][0-9][0-9]|7(?:[01][0-9]|20))[0-9]{12}$"))
             {
-                return new CreditCardBrandInfo(CreditCardBrand.Mastercard, "Mastercard", isValid);
+                return new CreditCardBrand(CardBrand.Mastercard, "Mastercard", isValid);
             }
             else if (Regex.IsMatch(cleanedNumber, @"^3[47][0-9]{13}$"))
             {
-                return new CreditCardBrandInfo(CreditCardBrand.Amex, "Amex", isValid);
+                return new CreditCardBrand(CardBrand.Amex, "Amex", isValid);
             }
             else if (Regex.IsMatch(cleanedNumber, @"^65[4-9][0-9]{13}|64[4-9][0-9]{13}|6011[0-9]{12}|(622(?:12[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[01][0-9]|92[0-5])[0-9]{10})$"))
             {
-                return new CreditCardBrandInfo(CreditCardBrand.Discover, "Discover", isValid);
+                return new CreditCardBrand(CardBrand.Discover, "Discover", isValid);
             }
             else if (Regex.IsMatch(cleanedNumber, @"^3(?:0[0-5]|[68][0-9])[0-9]{11}$"))
             {
-                return new CreditCardBrandInfo(CreditCardBrand.DinersClub, "Diners Club", isValid);
+                return new CreditCardBrand(CardBrand.DinersClub, "Diners Club", isValid);
             }
             else if (Regex.IsMatch(cleanedNumber, @"^(?:2131|1800|35[0-9]{3})[0-9]{11}$"))
             {
-                return new CreditCardBrandInfo(CreditCardBrand.JCB, "JCB", isValid);
+                return new CreditCardBrand(CardBrand.JCB, "JCB", isValid);
             }
             else
             {
-                return new CreditCardBrandInfo(CreditCardBrand.Invalid, "com bandeira desconhecida.", false);
+                return new CreditCardBrand(CardBrand.Invalid, "com bandeira desconhecida.", false);
             }
         }
         private static bool IsCreditCardValid(string numeroCartao)
@@ -86,15 +100,6 @@ namespace Domain.Transactions.ValueObject
         {
             return new string(input.Where(char.IsDigit).ToArray());
         }
-        public enum CreditCardBrand
-        {
-            Visa,
-            Mastercard,
-            Amex,
-            Discover,
-            DinersClub,
-            JCB,
-            Invalid
-        }
+
     }
 }

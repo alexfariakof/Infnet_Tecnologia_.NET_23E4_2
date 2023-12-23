@@ -25,6 +25,7 @@ namespace __mock__
             modelBuilder.ApplyConfiguration(new MusicPersonalMap());
             modelBuilder.ApplyConfiguration(new PlaylistMap());
             modelBuilder.ApplyConfiguration(new CardMap());
+            modelBuilder.ApplyConfiguration(new CreditCardBrandMap());
             modelBuilder.ApplyConfiguration(new TransactionMap());
         }
     }

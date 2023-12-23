@@ -25,7 +25,7 @@ namespace Domain.Account
             var login = MockLogin.GetFaker();
 
             // Act
-            customer.CreateAccount("John Doe", login, DateTime.Now, "123456789", flat, card);
+            customer.CreateAccount(new Agreggates.Customer { Name = "John Doe", Birth = DateTime.Now, CPF = "123456789" }, login, flat, card);
 
             // Assert
             Assert.Equal("John Doe", customer.Name);

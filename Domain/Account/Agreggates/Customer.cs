@@ -4,23 +4,23 @@ using Domain.Transactions.Agreggates;
 
 namespace Domain.Account.Agreggates
 {
-    public class Customer : AbstractAccount
+    public class Customer : AbstractAccount<Customer>
     {
         private const string PLAYLIST_NAME = "Favoritas";
         public string CPF { get; set; }
         public DateTime Birth { get; set; }
         public List<PlaylistPersonal> Playlists { get; set; } = new List<PlaylistPersonal>();
-        public void CreateAccount(string name, Login login, DateTime birth, string cpf, Flat flat, Card card)
+        public override void CreateAccount(Customer customer, Login login, Flat flat, Card card)
         {
-            Name = name;
+            Name = customer.Name;            
+            Birth = customer.Birth;
+            CPF = customer.CPF;
             Login = login;
-            Birth = birth;
-            CPF = cpf;            
             AddFlat(flat, card);
             AddCard(card);
             CreatePlaylist(name: PLAYLIST_NAME, @public: false);
         }
-        private void CreatePlaylist(string name, bool @public = true)
+        public void CreatePlaylist(string name, bool @public = true)
         {
             this.Playlists.Add(new PlaylistPersonal()
             {

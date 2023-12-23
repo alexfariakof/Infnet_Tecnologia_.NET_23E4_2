@@ -1,4 +1,5 @@
-﻿using Domain.Core.Aggreggates;
+﻿using Domain.Account.Agreggates;
+using Domain.Core.Aggreggates;
 using Domain.Core.ValueObject;
 using Domain.Transactions.ValueObject;
 
@@ -10,8 +11,8 @@ namespace Domain.Transactions.Agreggates
         private const int REPEAT_TRANSACTON_MERCHANT = 1;
         public Boolean Active { get; set; }
         public Monetary Limit { get; set; }
-        public String Number { get; set; }        
-        public CreditCardBrandInfo CardBrand { get; set; }
+        public String Number { get; set; }
+        public CreditCardBrand CardBrand { get; set; }        
         public ExpiryDate Validate { get; set; }
         
         private string _cvv;

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using Domain.Transactions.ValueObject;
 using Domain.Transactions.Agreggates;
 using Domain.Core.ValueObject;
 
@@ -17,21 +16,18 @@ namespace Repository.Mapping.Transactions
             builder.Property(x => x.DtTransaction).IsRequired();
             builder.Property(x => x.Description).IsRequired().HasMaxLength(50);
 
+            builder.HasOne(x => x.Merchant)
+                   .WithMany(cb => cb.Transactions)
+                   .HasForeignKey(x => x.Id)
+                   .IsRequired();
+
             builder.OwnsOne<Monetary>(d => d.Value, c =>
             {
-                c.Property(x => x.Value).HasColumnName("Monetary").IsRequired();
+                c.Property(x => x.Value)
+                .HasColumnName("Monetary")
+                .IsRequired()
+                .HasColumnType("decimal(18,2)");
             });
-
-            builder.OwnsOne<Merchant>(d => d.Merchant, c =>
-            {
-                c.Property(x => x.Name).HasColumnName("MerchantName").IsRequired();
-            });
-
-            builder.OwnsOne<Merchant>(d => d.Merchant, c =>
-            {
-                c.Property(x => x.CNPJ).HasColumnName("MerchantCNPJ").IsRequired();
-            });
-
         }
     }
 }

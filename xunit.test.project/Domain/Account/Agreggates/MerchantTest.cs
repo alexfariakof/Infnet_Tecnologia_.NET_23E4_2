@@ -26,7 +26,7 @@ namespace Domain.Account
             var login = MockLogin.GetFaker();
 
             // Act
-            merchant.CreateAccount("John Doe", login, "123456789", flat, card);
+            merchant.CreateAccount(new Agreggates.Merchant { Name = "John Doe", CNPJ = "123456789" }, login, flat, card);
 
             // Assert
             Assert.Equal("John Doe", merchant.Name);

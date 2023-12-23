@@ -18,7 +18,10 @@ namespace Repository.Mapping.Streaming
 
             builder.OwnsOne<Monetary>(d => d.Value, c =>
             {
-                c.Property(x => x.Value).HasColumnName("Monetary").IsRequired();
+                c.Property(x => x.Value)
+                .HasColumnName("Monetary")
+                .IsRequired()
+                .HasColumnType("decimal(18,2)");
             });
         }
     }
