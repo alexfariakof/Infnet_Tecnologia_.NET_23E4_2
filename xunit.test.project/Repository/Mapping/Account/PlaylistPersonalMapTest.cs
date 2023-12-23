@@ -11,6 +11,7 @@ namespace Repository.Mapping
         [Fact]
         public void EntityConfiguration_IsValid()
         {
+            const int PROPERTY_COUNT = 4;
             // Arrange
             var options = new DbContextOptionsBuilder<MockRegisterContext>()
                 .UseInMemoryDatabase(databaseName: "InMemoryDatabase_PlaylistPersonalMapTest")
@@ -25,7 +26,7 @@ namespace Repository.Mapping
 
                 var model = builder.Model;
                 var entityType = model.FindEntityType(typeof(PlaylistPersonal));
-
+                var propsCount = entityType.GetNavigations().Count() + entityType.GetProperties().Count();
                 // Act
                 var idProperty = entityType.FindProperty("Id");
                 var nameProperty = entityType.FindProperty("Name");
@@ -43,6 +44,7 @@ namespace Repository.Mapping
                 Assert.Equal(50, nameProperty.GetMaxLength());
                 Assert.False(isPublicProperty.IsNullable);
                 Assert.False(dtCreatedProperty.IsNullable);
+                Assert.Equal(PROPERTY_COUNT, propsCount);
             }
         }
     }

@@ -12,6 +12,8 @@ namespace Repository.Mapping
         [Fact]
         public void EntityConfiguration_IsValid()
         {
+            const int PROPERTY_COUNT = 6;
+
             // Arrange
             var options = new DbContextOptionsBuilder<MockRegisterContext>()
                 .UseInMemoryDatabase(databaseName: "InMemoryDatabase_MerchantMapTest")
@@ -26,6 +28,7 @@ namespace Repository.Mapping
 
                 var model = builder.Model;
                 var entityType = model.FindEntityType(typeof(Merchant));
+                var propsCount = entityType.GetNavigations().Count() + entityType.GetProperties().Count();
 
                 // Act
                 var idProperty = entityType.FindProperty("Id");
@@ -52,6 +55,7 @@ namespace Repository.Mapping
                 Assert.Equal(255, passwordProperty.GetMaxLength());
                 Assert.False(cnpjProperty.IsNullable);
                 Assert.Equal(18, cnpjProperty.GetMaxLength());
+                Assert.Equal(PROPERTY_COUNT, propsCount);
             }
         }
     }

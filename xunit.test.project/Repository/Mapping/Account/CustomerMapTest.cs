@@ -4,6 +4,7 @@ using Domain.Account.Agreggates;
 using Domain.Account.ValueObject;
 using Repository.Mapping.Account;
 using __mock__;
+using Domain.Streaming.Agreggates;
 
 namespace Repository.Mapping
 {
@@ -12,6 +13,7 @@ namespace Repository.Mapping
         [Fact]
         public void EntityConfiguration_IsValid()
         {
+            const int PROPERTY_COUNT = 8;
             // Arrange
             var options = new DbContextOptionsBuilder<MockRegisterContext>()
                 .UseInMemoryDatabase(databaseName: "InMemoryDatabase_CustomerMapTest")
@@ -26,6 +28,7 @@ namespace Repository.Mapping
 
                 var model = builder.Model;
                 var entityType = model.FindEntityType(typeof(Customer));
+                var propsCount = entityType.GetNavigations().Count() + entityType.GetProperties().Count();
 
                 // Act
                 var idProperty = entityType.FindProperty("Id");
@@ -35,7 +38,8 @@ namespace Repository.Mapping
                 var passwordProperty = loginNavigation.TargetEntityType.FindProperty(nameof(Login.Password));
                 var birthProperty = entityType.FindProperty("Birth");
                 var cpfProperty = entityType.FindProperty("CPF");
-
+                var playlistsNavigation = entityType.FindNavigation("Playlists");
+                
                 // Assert
                 Assert.NotNull(idProperty);
                 Assert.NotNull(nameProperty);
@@ -55,6 +59,10 @@ namespace Repository.Mapping
                 Assert.False(birthProperty.IsNullable);
                 Assert.False(cpfProperty.IsNullable);
                 Assert.Equal(14, cpfProperty.GetMaxLength());
+                Assert.NotNull(playlistsNavigation);
+                Assert.True(playlistsNavigation.IsCollection);
+                Assert.NotNull(playlistsNavigation.ForeignKey.DeleteBehavior);
+                Assert.Equal(PROPERTY_COUNT, propsCount);
             }
         }
     }

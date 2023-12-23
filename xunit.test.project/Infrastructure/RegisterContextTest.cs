@@ -2,6 +2,7 @@
 using Domain.Notifications;
 using Domain.Streaming.Agreggates;
 using Domain.Transactions.Agreggates;
+using Domain.Transactions.ValueObject;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
@@ -31,6 +32,7 @@ namespace Infrastructure
                 Assert.NotNull(context.Music);
                 Assert.NotNull(context.Playlist);
                 Assert.NotNull(context.Card);
+                Assert.NotNull(context.CardBrand);
                 Assert.NotNull(context.Transaction);
                 Assert.NotNull(context.Notification);
             }
@@ -59,6 +61,7 @@ namespace Infrastructure
                 Assert.True(model.FindEntityType(typeof(Music<Playlist>)) != null);
                 Assert.True(model.FindEntityType(typeof(Playlist)) != null);
                 Assert.True(model.FindEntityType(typeof(Card)) != null);
+                Assert.True(model.FindEntityType(typeof(CreditCardBrand)) != null);
                 Assert.True(model.FindEntityType(typeof(Transaction)) != null);
                 Assert.True(model.FindEntityType(typeof(Notification)) != null);
             }

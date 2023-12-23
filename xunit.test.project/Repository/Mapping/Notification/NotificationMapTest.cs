@@ -4,7 +4,6 @@ using Domain.Notifications;
 using Repository.Mapping.Notifications;
 using __mock__;
 
-
 namespace Repository.Mapping
 {
     public class NotificationMapTest
@@ -12,6 +11,8 @@ namespace Repository.Mapping
         [Fact]
         public void EntityConfiguration_IsValid()
         {
+            // Existem mais 2 Propiedades que não estam sendo Mapeadas e validadas
+            const int PROPERTY_COUNT = 9;
             // Arrange
             var options = new DbContextOptionsBuilder<MockRegisterContext>()
                 .UseInMemoryDatabase(databaseName: "InMemoryDatabase_NotificationMapTest")
@@ -26,6 +27,7 @@ namespace Repository.Mapping
 
                 var model = builder.Model;
                 var entityType = model.FindEntityType(typeof(Notification));
+                var propsCount = entityType.GetNavigations().Count() + entityType.GetProperties().Count();
 
                 // Act
                 var idProperty = entityType.FindProperty("Id");
@@ -33,7 +35,9 @@ namespace Repository.Mapping
                 var messageProperty = entityType.FindProperty("Message");
                 var dtNotificationProperty = entityType.FindProperty("DtNotification");
                 var notificationTypeProperty = entityType.FindProperty("NotificationType");
-
+                var destinationNavigation = entityType.FindNavigation("Destination");
+                var senderNavigation = entityType.FindNavigation("Sender");
+                
                 // Assert
                 Assert.NotNull(idProperty);
                 Assert.NotNull(titleroperty);
@@ -48,6 +52,16 @@ namespace Repository.Mapping
                 Assert.Equal(250, messageProperty.GetMaxLength());
                 Assert.False(dtNotificationProperty.IsNullable);
                 Assert.False(notificationTypeProperty.IsNullable);
+                Assert.NotNull(destinationNavigation);
+                Assert.False(destinationNavigation.IsCollection);
+                Assert.NotNull(destinationNavigation.ForeignKey);
+                Assert.True(destinationNavigation.ForeignKey.IsRequired);
+                Assert.Equal(DeleteBehavior.Cascade, destinationNavigation.ForeignKey.DeleteBehavior);
+                Assert.NotNull(senderNavigation);
+                Assert.False(senderNavigation.IsCollection);
+                Assert.NotNull(senderNavigation.ForeignKey);
+                Assert.False(senderNavigation.ForeignKey.IsRequired);
+                Assert.Equal(PROPERTY_COUNT, propsCount);
             }
         }
     }
