@@ -9,7 +9,22 @@ namespace Domain.Core.Aggreggates
     {
         private readonly byte[] Key; // Chave fixa de 256 bits
         private static ICrypto? Instance;
-        public static ICrypto GetInstance { get => Instance == null ? new Crypto() : Instance; }
+        private static readonly object LockObject = new object();
+        public static ICrypto GetInstance
+        {
+            get
+            {
+                lock (LockObject)
+                {
+                    if (Instance == null)
+                    {
+                        Instance = new Crypto();
+                    }
+
+                    return Instance;
+                }
+            }
+        }
         private Crypto()
         {
             var key = getHashKey();
