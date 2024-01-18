@@ -17,6 +17,12 @@ namespace Repository.Mapping.Account
             builder.Property(x => x.Birth).IsRequired();
             builder.Property(x => x.CPF).IsRequired().HasMaxLength(14);
 
+            builder.OwnsOne<Phone>(e => e.Phone, c =>
+            {
+                c.Property(x => x.Number).HasColumnName("Phone").HasMaxLength(50).IsRequired();
+
+            });
+
             builder.OwnsOne<Login>(e => e.Login, c =>
             {
                c.Property(x => x.Email).HasColumnName("Email").HasMaxLength(150).IsRequired();

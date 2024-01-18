@@ -7,8 +7,9 @@ namespace Domain.Account.Agreggates
     public class Merchant : AbstractAccount<Merchant>
     {
         public string CNPJ { get; set; }
-        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
-
+        public Phone Phone { get; set; } = new Phone();
+        public Address Address { get; set; } = new Address();
+        public List<Transaction> Transactions { get; set; }
         public override void CreateAccount(Merchant merchant, Login login,  Flat flat, Card card)
         {
             Name = merchant.Name;

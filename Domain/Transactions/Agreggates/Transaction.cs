@@ -9,6 +9,7 @@ namespace Domain.Transactions.Agreggates
         public DateTime DtTransaction { get; set; }
         public Monetary Value { get; set; }
         public String Description { get; set; }
-        public Merchant Merchant { get; set; }
+        public Customer Customer { get; set; }
+        public Guid CorrelationId { get; set; }
     }
 }

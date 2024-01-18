@@ -20,8 +20,8 @@ namespace Domain.Account.Agreggates
         public void AddFlat(Flat flat, Card card)
         {
             IsValidCreditCard(card.Number);
-            var merchant = new Merchant() { Name = flat.Name };
-            card.CreateTransaction(merchant, new Monetary(flat.Value), flat.Description);
+            var customer = new Customer() { Name = flat.Name };
+            card.CreateTransaction(customer, new Monetary(flat.Value), flat.Description);
             DisableActiveSigniture();
             this.Signatures.Add(new Signature()
             {

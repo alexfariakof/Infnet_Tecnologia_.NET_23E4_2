@@ -4,51 +4,49 @@ using Domain.Streaming.Agreggates;
 using Repository.Mapping.Streaming;
 using __mock__;
 
-namespace Repository.Mapping
+namespace Repository.Mapping;
+public class AlbumMapTest
 {
-    public class AlbumMapTest
+    [Fact]
+    public void EntityConfiguration_IsValid()
     {
-        [Fact]
-        public void EntityConfiguration_IsValid()
+        const int PROPERTY_COUNT = 3;
+
+        // Arrange
+        var options = new DbContextOptionsBuilder<MockRegisterContext>()
+            .UseInMemoryDatabase(databaseName: "InMemoryDatabase")
+            .Options;
+
+        using (var context = new MockRegisterContext(options))
         {
-            const int PROPERTY_COUNT = 3;
+            var builder = new ModelBuilder(new ConventionSet());
+            var configuration = new AlbumMap();
 
-            // Arrange
-            var options = new DbContextOptionsBuilder<MockRegisterContext>()
-                .UseInMemoryDatabase(databaseName: "InMemoryDatabase")
-                .Options;
+            configuration.Configure(builder.Entity<Album>());
 
-            using (var context = new MockRegisterContext(options))
-            {
-                var builder = new ModelBuilder(new ConventionSet());
-                var configuration = new AlbumMap();
+            var model = builder.Model;
+            var entityType = model.FindEntityType(typeof(Album));
+            var propsCount = entityType.GetNavigations().Count() + entityType.GetProperties().Count();
 
-                configuration.Configure(builder.Entity<Album>());
+            // Act
+            var idProperty = entityType.FindProperty("Id");
+            var nameProperty = entityType.FindProperty("Name");
+            var musicNavigation = entityType.FindNavigation("Music");
 
-                var model = builder.Model;
-                var entityType = model.FindEntityType(typeof(Album));
-                var propsCount = entityType.GetNavigations().Count() + entityType.GetProperties().Count();
+            // Assert
+            Assert.NotNull(idProperty);
+            Assert.NotNull(nameProperty);
 
-                // Act
-                var idProperty = entityType.FindProperty("Id");
-                var nameProperty = entityType.FindProperty("Name");
-                var musicNavigation = entityType.FindNavigation("Music");
-
-                // Assert
-                Assert.NotNull(idProperty);
-                Assert.NotNull(nameProperty);
-
-                Assert.True(idProperty.IsPrimaryKey());
-                Assert.False(nameProperty.IsNullable);
-                Assert.Equal(50, nameProperty.GetMaxLength());
-                Assert.NotNull(musicNavigation);
-                Assert.True(musicNavigation.IsCollection);
-                Assert.NotNull(musicNavigation.ForeignKey.DeleteBehavior);
-                var foreignKey = musicNavigation.ForeignKey;
-                Assert.NotNull(foreignKey);
-                Assert.Equal(DeleteBehavior.Cascade, foreignKey.DeleteBehavior);
-                Assert.Equal(PROPERTY_COUNT, propsCount);
-            }
+            Assert.True(idProperty.IsPrimaryKey());
+            Assert.False(nameProperty.IsNullable);
+            Assert.Equal(50, nameProperty.GetMaxLength());
+            Assert.NotNull(musicNavigation);
+            Assert.True(musicNavigation.IsCollection);
+            Assert.NotNull(musicNavigation.ForeignKey.DeleteBehavior);
+            var foreignKey = musicNavigation.ForeignKey;
+            Assert.NotNull(foreignKey);
+            Assert.Equal(DeleteBehavior.Cascade, foreignKey.DeleteBehavior);
+            Assert.Equal(PROPERTY_COUNT, propsCount);
         }
     }
 }

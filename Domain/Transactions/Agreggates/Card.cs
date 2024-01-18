@@ -23,14 +23,14 @@ namespace Domain.Transactions.Agreggates
         }
         public List<Transaction> Transactions { get; set; } = new List<Transaction>();
 
-        public void CreateTransaction(Merchant merchant, Monetary value, string description = "")
+        public void CreateTransaction(Customer customer, Monetary value, string description = "")
         {
             // Verifica se o cartão está ativo
             this.IsCardActive();
 
             Transaction transaction = new Transaction
             {
-                Merchant = merchant,
+                Customer = customer,
                 Value = value,
                 Description = description,
                 DtTransaction = DateTime.Now,
@@ -59,7 +59,7 @@ namespace Domain.Transactions.Agreggates
                 throw new Exception("Cartão utilizado muitas vezes em um período curto");
 
             var transactionRepetedByMerchant = lastTransactions?
-                                                .Where(x => x.Merchant.Name.ToUpper().Equals(transaction.Merchant.Name.ToUpper())
+                                                .Where(x => x.Customer.Name.ToUpper().Equals(transaction.Customer.Name.ToUpper())
                                                 && x.Value == transaction.Value)
                                                 .Count() >= REPEAT_TRANSACTON_MERCHANT;
 

@@ -9,7 +9,10 @@ namespace Domain.Account.Agreggates
         private const string PLAYLIST_NAME = "Favoritas";
         public string CPF { get; set; }
         public DateTime Birth { get; set; }
+        public Phone Phone { get; set; } = new Phone();
+        public Address Address { get; set; } = new Address();
         public List<PlaylistPersonal> Playlists { get; set; } = new List<PlaylistPersonal>();
+        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
         public override void CreateAccount(Customer customer, Login login, Flat flat, Card card)
         {
             Name = customer.Name;            

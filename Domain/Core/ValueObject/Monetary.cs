@@ -14,6 +14,10 @@
             Value = value;
         }
 
+        public int GetCents()
+        {
+            return (int)(Value*100);
+        }
         public string Formatted_ptBr()
         {
             return $"R$ {Value.ToString("N2")}";

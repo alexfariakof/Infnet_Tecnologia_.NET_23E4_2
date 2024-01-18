@@ -16,7 +16,7 @@ namespace Repository.Mapping.Transactions
             builder.Property(x => x.DtTransaction).IsRequired();
             builder.Property(x => x.Description).IsRequired().HasMaxLength(50);
 
-            builder.HasOne(x => x.Merchant)
+            builder.HasOne(x => x.Customer)
                    .WithMany(cb => cb.Transactions)
                    .HasForeignKey(x => x.Id)
                    .IsRequired();

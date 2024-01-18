@@ -1,7 +1,5 @@
-﻿namespace Domain.Core
+﻿namespace Domain.Core;
+public class BaseTest
 {
-    public class BaseTest
-    {
 
-    }
 }

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{E37175AA-C02D-4379-8931-175751FB9E7C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6808CB80-3745-46E5-8F09-00C5AE3F6077} = {6808CB80-3745-46E5-8F09-00C5AE3F6077}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunit.Test.Project", "xunit.test.project\Xunit.Test.Project.csproj", "{5E706BF7-7095-4DA6-879A-8E230CC84E80}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -32,8 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migrations_MySqlServer", "M
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".documents", ".documents", "{0EA1D342-20E9-4789-A90A-1E362A8E252B}"
 	ProjectSection(SolutionItems) = preProject
-		Domain\.documents\DDD Course OREILLY\README.md = Domain\.documents\DDD Course OREILLY\README.md
+		ExampleOpenAPI.cs = ExampleOpenAPI.cs
 		migrations.txt = migrations.txt
+		Domain\.documents\DDD Course OREILLY\README.md = Domain\.documents\DDD Course OREILLY\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Aula 2023-11-18", "1 - Aula 2023-11-18", "{89C28CE8-969E-4FCA-9C55-7C5F65C14021}"
@@ -50,6 +54,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2- Aula  2023-11-25", "2- A
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DDD Course OREILLY", "DDD Course OREILLY", "{5AA101AF-6DE9-4322-A799-834E61AEF49E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integration_PIX_Adapter", "Integration.PIX.Adapeter\Integration_PIX_Adapter.csproj", "{6808CB80-3745-46E5-8F09-00C5AE3F6077}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +87,10 @@ Global
 		{2BBCC98F-4E9A-4F10-B5E2-70EEDFE99664}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BBCC98F-4E9A-4F10-B5E2-70EEDFE99664}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BBCC98F-4E9A-4F10-B5E2-70EEDFE99664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6808CB80-3745-46E5-8F09-00C5AE3F6077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6808CB80-3745-46E5-8F09-00C5AE3F6077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6808CB80-3745-46E5-8F09-00C5AE3F6077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6808CB80-3745-46E5-8F09-00C5AE3F6077}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
